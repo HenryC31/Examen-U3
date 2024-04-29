@@ -10,8 +10,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,14 +25,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 public class Window {
 
-	public JFrame frame;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	public JFrame frmEditar;
 
 	private JPanel panel = new JPanel();;
 	JPanel panelVehiculos = new JPanel();
@@ -39,6 +43,9 @@ public class Window {
 	ImageIcon imagenBoton = new ImageIcon(getClass().getResource("/media/botonLogin.png"));
 	Image boton = imagenBoton.getImage();
 	int vista_vehiculo = 0;
+	private JButton flecha2;
+	private JPasswordField passwordField;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -48,7 +55,7 @@ public class Window {
 			public void run() {
 				try {
 					Window window = new Window();
-					window.frame.setVisible(true);
+					window.frmEditar.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -67,16 +74,16 @@ public class Window {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setVisible(true);
-		frame.setBounds(100, 100, 1200, 700);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmEditar = new JFrame();
+		frmEditar.setVisible(true);
+		frmEditar.setBounds(100, 100, 1200, 700);
+		frmEditar.getContentPane().setLayout(null);
+		frmEditar.setResizable(false);
+		frmEditar.setLocationRelativeTo(null);
+		frmEditar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmEditar.setJMenuBar(menuBar);
 
 		JMenu mnNewMenu = new JMenu("Login");
 		mnNewMenu.setBackground(new Color(81, 151, 216));
@@ -88,11 +95,11 @@ public class Window {
 				// TODO Auto-generated method stub
 				System.out.println("Lol, q mal");
 				for (int i = 0; i < paneles.length; i++) {
-					frame.remove(paneles[i]);
+					frmEditar.remove(paneles[i]);
 				}
-				login(frame);
-				frame.repaint();
-				frame.revalidate();
+				login(frmEditar);
+				frmEditar.repaint();
+				frmEditar.revalidate();
 			}
 
 			@Override
@@ -141,9 +148,9 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 				vista_vehiculo = 1;
 				for (int i = 0; i < paneles.length; i++) {
-					frame.remove(paneles[i]);
+					frmEditar.remove(paneles[i]);
 				}
-				vehiculos(frame);
+				vehiculos(frmEditar);
 			}
 		});
 
@@ -153,9 +160,9 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 				vista_vehiculo = 2;
 				for (int i = 0; i < paneles.length; i++) {
-					frame.remove(paneles[i]);
+					frmEditar.remove(paneles[i]);
 				}
-				vehiculos(frame);
+				vehiculos(frmEditar);
 			}
 		});
 
@@ -165,9 +172,9 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 				vista_vehiculo = 3;
 				for (int i = 0; i < paneles.length; i++) {
-					frame.remove(paneles[i]);
+					frmEditar.remove(paneles[i]);
 				}
-				vehiculos(frame);
+				vehiculos(frmEditar);
 			}
 		});
 
@@ -177,9 +184,9 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 				vista_vehiculo = 4;
 				for (int i = 0; i < paneles.length; i++) {
-					frame.remove(paneles[i]);
+					frmEditar.remove(paneles[i]);
 				}
-				vehiculos(frame);
+				vehiculos(frmEditar);
 			}
 		});
 
@@ -200,11 +207,11 @@ public class Window {
 				// TODO Auto-generated method stub
 				System.out.println("Lol, q bien");
 				for (int i = 0; i < paneles.length; i++) {
-					frame.remove(paneles[i]);
+					frmEditar.remove(paneles[i]);
 				}
-				rentas(frame);
-				frame.repaint();
-				frame.revalidate();
+				rentas(frmEditar);
+				frmEditar.repaint();
+				frmEditar.revalidate();
 			}
 
 			@Override
@@ -235,99 +242,121 @@ public class Window {
 		menuBar.add(mnNewMenu_1);
 //		this.login(frame);
 		vista_vehiculo = 1;
-		this.vehiculos(frame);
+		this.carros(frmEditar);
 //		this.rentas(frame);
 	}
 
 	public void login(JFrame frame) {
 		frame.setTitle("Login");
-		panel.setBackground(new Color(255, 255, 255));
-
+		panel.setBackground(new Color(0, 0, 0));
+		
 		panel.setBounds(0, 0, 1184, 638);
 		panel.setLayout(null);
 
+	
+		JLabel label = new JLabel("Car - Rental");
+		label.setFont(new Font("", Font.BOLD, 20));
 		frame.getContentPane().add(panel);
-
-		JPanel panel_1 = new JPanel() {
+		
+		JPanel panel_1 = new JPanel(){
 			@Override
-			public void paintComponent(Graphics create) {
+			public void paintComponent(Graphics create)
+			{
 				super.paintComponent(create);
-				Graphics2D g2d = (Graphics2D) create;
-
-				// Fondo azul oscuro
-				g2d.setColor(new Color(43, 59, 89));
-				g2d.fillRect(15, 15, 800, 550);
-
-				// Fondo azul claro
-				g2d.setColor(new Color(163, 184, 210));
-				g2d.fillRect(815, 15, 295, 550);
-
-				// Círculo de fondo
-				g2d.setColor(new Color(1, 6, 27));
+				Graphics2D g2d=(Graphics2D)create;
+				
+				
+				g2d.setColor(new Color(163,184,210));
+				g2d.fillRect(815,0, 310,580 );
+				
+				g2d.setColor(new Color(1,6,27));
 				g2d.fillOval(620, 100, 400, 400);
-
-				// Sombra panel login
-				g2d.setColor(new Color(1, 6, 27));
+				
+				g2d.setColor(new Color(1,6,27));
 				g2d.fillRect(70, 51, 430, 479);
-
+				
 				try {
-//					Imágen carro
-					BufferedImage image = ImageIO.read(getClass().getResource("/media/car.png"));
-					g2d.drawImage(image, 570, 180, 500, 240, null);
-
-				} catch (IOException e) {
+					BufferedImage image= ImageIO.read(getClass().getResource("/media/car.png"));
+					g2d.drawImage(image,570,180,500,240,null);
+					
+				}catch(IOException e) {
 					e.printStackTrace();
 				}
 			}
 		};
-
-		panel_1.setBackground(new Color(0, 0, 0));
+		
+		panel_1.setBackground(new Color(43, 59, 89));
 		panel_1.setBounds(29, 27, 1125, 580);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
-
+		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(163, 184, 210));
 		panel_6.setBounds(79, 61, 410, 459);
 		panel_1.add(panel_6);
 		panel_6.setLayout(null);
-
+		
 		JLabel lblNewLabel = new JLabel("Login");
 		lblNewLabel.setBackground(new Color(0, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 40));
 		lblNewLabel.setBounds(129, 29, 140, 52);
 		panel_6.add(lblNewLabel);
-
+		
 		JLabel lblUsuario = new JLabel("Contraseña");
 		lblUsuario.setBackground(new Color(0, 0, 0));
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuario.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 		lblUsuario.setBounds(53, 230, 155, 38);
 		panel_6.add(lblUsuario);
-
+		
+		JPasswordField passwordField = new JPasswordField();
+		passwordField.setBounds(63, 279, 300, 40);
+		panel_6.add(passwordField);
+		
 		JLabel lblUsuario_1 = new JLabel("Nombre de usuario");
 		lblUsuario_1.setBackground(new Color(0, 0, 0));
 		lblUsuario_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuario_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 		lblUsuario_1.setBounds(53, 119, 249, 38);
 		panel_6.add(lblUsuario_1);
-
-		textField = new JTextField();
-		textField.setBackground(new Color(255, 255, 255));
-		textField.setBounds(63, 168, 300, 40);
-		panel_6.add(textField);
-		textField.setColumns(10);
-
-		passwordField = new JPasswordField();
-		passwordField.setBackground(new Color(255, 255, 255));
-		passwordField.setBounds(63, 279, 300, 40);
-		panel_6.add(passwordField);
-
-		JButton btnNewButton = new JButton("", imagenBoton);
+		
+		JTextField respCliente = new JTextField();
+		respCliente.setBackground(new Color(255, 255, 255));
+		respCliente.setBounds(63, 168, 300, 40);
+		panel_6.add(respCliente);
+		respCliente.setColumns(10);
+		
+		JButton btnNewButton = new JButton("",imagenBoton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("login");
+				String passw = new String(passwordField.getPassword());
+		        String nom=respCliente.getText();
+		       ;
+				
+				
+				if(nom.length()<=0)
+				{
+					respCliente.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+					
+				}
+				else
+				{
+					respCliente.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+				}
+				if(!passw.equals(""))
+				{
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+					
+				}
+				else
+				{
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+					
+				}
+			
+				
 			}
 		});
 		btnNewButton.setContentAreaFilled(false);
@@ -335,16 +364,7 @@ public class Window {
 		btnNewButton.setBounds(130, 358, 155, 60);
 		panel_6.add(btnNewButton);
 
-		JLabel puntos = new JLabel();
-		puntos.setBounds(-20, 1, 150, 111);
-		puntos.setIcon(new ImageIcon(getClass().getResource("/media/puntos.png")));
-		panel.add(puntos);
-
-		JLabel puntos2 = new JLabel();
-		puntos2.setBounds(1053, 527, 150, 111);
-		puntos2.setIcon(new ImageIcon(getClass().getResource("/media/puntos.png")));
-		panel.add(puntos2);
-
+		
 		JLabel lblNewLabel_1 = new JLabel("CarRental");
 		lblNewLabel_1.setForeground(Color.black);
 		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.BOLD, 40));
@@ -748,12 +768,281 @@ public class Window {
 
 	}
 
-	private void rentas(JFrame frame) {
-		frame.setTitle("Rentas");
-		panelRentas.setBackground(Color.pink);
-		panelRentas.setBounds(0, 0, 1184, 638);
-		panelRentas.setLayout(null);
-		frame.getContentPane().add(panelRentas);
+	
+	
+	
+	public void  carros (JFrame frame) {
+		frame.setTitle("Carros");
+		JPanel panelCarros=new JPanel();
+		panelCarros.setBackground(new Color(0, 0, 0));
+		panelCarros.setBounds(0, 0, 1184, 638);
+		panelCarros.setLayout(null);
+		
+		frame.getContentPane().add(panelCarros);
+		
+		JPanel panel_1 = new JPanel(){
+			@Override
+			public void paintComponent(Graphics create)
+			{
+				super.paintComponent(create);
+				Graphics2D g2d=(Graphics2D)create;
+			}
+		};
+		
+		panel_1.setBackground(new Color(163, 184, 210));
+		panel_1.setBounds(29, 27, 1125, 580);
+		panelCarros.add(panel_1);
+		panel_1.setLayout(null);
+		
+		
+		
+		
+		
+		
+		JLabel lblNewLabel_4 = new JLabel("Vehículos");
+		lblNewLabel_4.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 40));
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4.setBounds(465, 1, 200, 69);
+		panel_1.add(lblNewLabel_4);
 
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setOpaque(true);
+		lblNewLabel_3.setBackground(new Color(1, 6, 27));
+		lblNewLabel_3.setBounds(10, 10, 1105, 50);
+		panel_1.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setOpaque(true);
+		lblNewLabel_2.setBackground(new Color(255, 255, 255));
+		lblNewLabel_2.setBounds(0, 0, 1125, 70);
+		panel_1.add(lblNewLabel_2);
+		
+		
+		
+		JButton ferButton=new JButton();
+		ferButton.setContentAreaFilled(false);
+		ferButton.setBorderPainted(false);
+		ferButton.setBounds(60, 106, 200, 198);
+		ferButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Ferrari");
+			}
+		});
+		panel_1.add(ferButton);
+		
+		JButton masButton=new JButton();
+		masButton.setContentAreaFilled(false);
+		masButton.setBorderPainted(false);
+		masButton.setBounds(326, 106, 200, 198);
+		masButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Maserati");
+			}
+		});
+		panel_1.add(masButton);
+		
+		JButton bmwButton=new JButton();
+		bmwButton.setContentAreaFilled(false);
+		bmwButton.setBorderPainted(false);
+		bmwButton.setBounds(591, 106, 200, 198);
+		bmwButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("BMW");
+			}
+		});
+		panel_1.add(bmwButton);
+		
+		JButton mcButton=new JButton();
+		mcButton.setContentAreaFilled(false);
+		mcButton.setBorderPainted(false);
+		mcButton.setBounds(859, 106, 200, 198);
+		mcButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("MClaren");
+			}
+		});
+		panel_1.add(mcButton);
+		
+		JButton porButton=new JButton();
+		porButton.setContentAreaFilled(false);
+		porButton.setBorderPainted(false);
+		porButton.setBounds(61, 348, 198, 200);
+		porButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Porsche");
+			}
+		});
+		panel_1.add(porButton);
+		
+		JButton lamboButton=new JButton();
+		lamboButton.setContentAreaFilled(false);
+		lamboButton.setBorderPainted(false);
+		lamboButton.setBounds(326,348 , 200, 200);
+		lamboButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Lamborghini");
+			}
+		});
+		panel_1.add(lamboButton);
+		
+		JButton bugaButton=new JButton();
+		bugaButton.setContentAreaFilled(false);
+		bugaButton.setBorderPainted(false);
+		bugaButton.setBounds(591, 348, 200, 198);
+		bugaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Bugatti");
+			}
+		});
+		panel_1.add(bugaButton);
+		
+		JButton bentButton=new JButton();
+		bentButton.setContentAreaFilled(false);
+		bentButton.setBorderPainted(false);
+		bentButton.setBounds(860, 348, 200, 198);
+		bentButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Bentley");
+			}
+		});
+		panel_1.add(bentButton);
+		
+		JLabel ferrari = new JLabel("Ferrari");
+		ferrari.setForeground(new Color(255, 255, 255));
+		ferrari.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		ferrari.setBounds(116, 266, 91, 25);
+		panel_1.add(ferrari);
+		
+		JLabel imgFerr=new JLabel();
+		imgFerr.setIcon(new ImageIcon(getClass().getResource("/media/ferrari.png")));
+		imgFerr.setBounds(72, 117, 200, 150);
+		panel_1.add(imgFerr);
+		
+		JLabel maserati = new JLabel("Maserati");
+		maserati.setForeground(new Color(255, 255, 255));
+		maserati.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		maserati.setBounds(372, 266, 115, 25);
+		panel_1.add(maserati);
+		
+		JLabel imgMas=new JLabel();
+		imgMas.setIcon(new ImageIcon(getClass().getResource("/media/maserati.png")));
+		imgMas.setBounds(335, 117, 200, 150);
+		panel_1.add(imgMas);
+		
+		JLabel bmw = new JLabel("BMW");
+		bmw .setForeground(new Color(255, 255, 255));
+		bmw .setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		bmw .setBounds(656, 267, 76, 25);
+		panel_1.add(bmw );
+		
+		JLabel imgBMW=new JLabel();
+		imgBMW.setIcon(new ImageIcon(getClass().getResource("/media/bmw.png")));
+		imgBMW.setBounds(599, 115, 200, 150);
+		panel_1.add(imgBMW);
+		
+		JLabel mcLaren = new JLabel("McLaren");
+		mcLaren .setForeground(new Color(255, 255, 255));
+		mcLaren.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		mcLaren.setBounds(905, 266, 129, 25);
+		panel_1.add(mcLaren);
+		
+
+		JLabel imgMac=new JLabel();
+		imgMac.setIcon(new ImageIcon(getClass().getResource("/media/maclaren.png")));
+		imgMac.setBounds(873, 117, 200, 150);
+		panel_1.add(imgMac);
+		
+		JLabel porsche = new JLabel("Porsche");
+		porsche.setForeground(new Color(255, 255, 255));
+		porsche.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		porsche.setBounds(108, 507, 106, 34);
+		panel_1.add(porsche);
+		
+		JLabel imgPor=new JLabel();
+		imgPor.setIcon(new ImageIcon(getClass().getResource("/media/porsche.png")));
+		imgPor.setBounds(68, 356, 200, 150);
+		panel_1.add(imgPor);
+		
+		JLabel lambo = new JLabel("Lamborghini");
+		lambo .setForeground(new Color(255, 255, 255));
+		lambo.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		lambo.setBounds(347, 506, 160, 34);
+		panel_1.add(lambo);
+		
+		JLabel imgLambo=new JLabel();
+		imgLambo.setIcon(new ImageIcon(getClass().getResource("/media/lambo.png")));
+		imgLambo.setBounds(335, 356, 200, 150);
+		panel_1.add(imgLambo);
+		
+		JLabel bugatti = new JLabel("Bugatti");
+		bugatti .setForeground(new Color(255, 255, 255));
+		bugatti.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		bugatti.setBounds(643, 506, 106, 34);
+		panel_1.add(bugatti);
+		
+		JLabel imgBug=new JLabel();
+		imgBug.setIcon(new ImageIcon(getClass().getResource("/media/bugatti.png")));
+		imgBug.setBounds(601, 356, 200, 150);
+		panel_1.add(imgBug);
+		
+		JLabel bentley = new JLabel("Bentley");
+		bentley .setForeground(new Color(255, 255, 255));
+		bentley.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		bentley.setBounds(915, 506, 129, 34);
+		panel_1.add(bentley);
+		
+		JLabel imgBen=new JLabel();
+		imgBen.setIcon(new ImageIcon(getClass().getResource("/media/bentley.png")));
+		imgBen.setBounds(871, 356, 200, 150);
+		panel_1.add(imgBen);
+		
+		JLabel item1=new JLabel();
+		item1.setIcon(new ImageIcon(getClass().getResource("/media/item1.png")));
+		item1.setBounds(326, 90, 230, 230);
+		panel_1.add(item1);
+		
+		JLabel item2=new JLabel();
+		item2.setIcon(new ImageIcon(getClass().getResource("/media/item2.png")));
+		item2.setBounds(60, 90, 200, 230);
+		panel_1.add(item2);
+		
+		JLabel item3=new JLabel();
+		item3.setIcon(new ImageIcon(getClass().getResource("/media/item1.png")));
+		item3.setBounds(860, 90, 230, 230);
+		panel_1.add(item3);
+		
+		JLabel item4=new JLabel();
+		item4.setIcon(new ImageIcon(getClass().getResource("/media/item2.png")));
+		item4.setBounds(591, 90, 230, 230);
+		panel_1.add(item4);
+		
+		JLabel item5=new JLabel();
+		item5.setIcon(new ImageIcon(getClass().getResource("/media/item2.png")));
+		item5.setBounds(326, 332, 230, 230);
+		panel_1.add(item5);
+		
+		JLabel item6=new JLabel();
+		item6.setIcon(new ImageIcon(getClass().getResource("/media/item1.png")));
+		item6.setBounds(60,332 , 200, 230);
+		panel_1.add(item6);
+		
+		JLabel item7=new JLabel();
+		item7.setIcon(new ImageIcon(getClass().getResource("/media/item2.png")));
+		item7.setBounds(860, 332, 230, 230);
+		panel_1.add(item7);
+		
+		JLabel item8=new JLabel();
+		item8.setIcon(new ImageIcon(getClass().getResource("/media/item1.png")));
+		item8.setBounds(591, 332, 230, 230);
+		panel_1.add(item8);
+	
+		
+	}
+	
+	public void rentas(JFrame frame)
+	{
+		
 	}
 }
+
+
