@@ -242,7 +242,7 @@ public class Window {
 		menuBar.add(mnNewMenu_1);
 //		this.login(frame);
 		vista_vehiculo = 1;
-		this.editar(frmEditar);
+		this.consultar(frmEditar);
 //		this.rentas(frame);
 	}
 
@@ -1653,6 +1653,148 @@ public class Window {
 		marcaCarro.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 		marcaCarro.setBounds(801, 130, 106, 30);
 		panel_1.add(marcaCarro);
+		
+	}
+	
+	private void consultar(JFrame frame) {
+		frame.setTitle("Consultar");
+		JPanel panelConsulta=new JPanel();
+		panelConsulta.setBackground(new Color(0, 0, 0));
+		panelConsulta.setBounds(0, 0, 1184, 638);
+		panelConsulta.setLayout(null);
+		
+		frame.getContentPane().add(panelConsulta);
+		
+		JPanel panel_1 = new JPanel(){
+			@Override
+			public void paintComponent(Graphics create)
+			{
+				super.paintComponent(create);
+				Graphics2D g2d=(Graphics2D)create;
+			}
+		};
+		
+		panel_1.setBackground(new Color(163, 184, 210));
+		panel_1.setBounds(29, 27, 1125, 580);
+		panelConsulta.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_4 = new JLabel("Consultar");
+		lblNewLabel_4.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 40));
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4.setBounds(465, 1, 200, 69);
+		panel_1.add(lblNewLabel_4);
+
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setOpaque(true);
+		lblNewLabel_3.setBackground(new Color(1, 6, 27));
+		lblNewLabel_3.setBounds(10, 10, 1105, 50);
+		panel_1.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setOpaque(true);
+		lblNewLabel_2.setBackground(new Color(255, 255, 255));
+		lblNewLabel_2.setBounds(0, 0, 1125, 70);
+		panel_1.add(lblNewLabel_2);
+		
+		
+		
+		
+		
+		String tableTitle[]={"No. de renta", "Cliente", "Fecha inicial", "Fecha final", "Costo total", "Placas","Marca","Modelo", "Color", "Costo por día", "Año", "Transmisión"};
+		String tableData[][]={
+			    {"1", "Ehileen", "2024/04/01", "2024/04/10", "1500.0", "ABC123", "Ferrari", "Modelo1", "Rojo", "50.0", "2020", "Automática"},
+			    {"2", "Henry", "2024/04/05", "2024/04/15", "2000.0", "XYZ789", "Maserati", "Modelo2", "Negro", "60.0", "2019", "Manual"},
+			    {"3", "Kevin", "2024/04/10", "2024/04/20", "1800.0", "DEF456", "Porsche", "Modelo3", "Rojo", "55.0", "2021", "Automática"},
+			    {"4", "Omar", "2024/04/15", "2024/04/25", "2200.0", "GHI789", "Lamborghini", "Modelo4", "Negro", "65.0", "2018", "Manual"},
+			    {"5", "Roberto", "2024/04/20", "2024/04/30", "1700.0", "JKL012", "Bugatti", "Modelo5", "Rojo", "70.0", "2022", "Automática"},
+			    {"6", "Melissa", "2024/04/25", "2024/05/05", "2500.0", "MNO345", "Bentley", "Modelo6", "Negro", "75.0", "2017", "Manual"},
+			    {"7", "Heriberto", "2024/04/30", "2024/05/10", "1900.0", "PQR678", "BMW", "Modelo7", "Rojo", "55.0", "2023", "Automática"},
+			    {"8", "Manuel", "2024/05/05", "2024/05/15", "2300.0", "STU901", "MacLaren", "Modelo8", "Negro", "80.0", "2016", "Manual"},
+			    {"9", "Karim", "2024/05/10", "2024/05/20", "2100.0", "VWX234", "Ferrari", "Modelo9", "Rojo", "75.0", "2020", "Automática"},
+			    {"10", "Ariel", "2024/05/15", "2024/05/25", "2400.0", "YZA567", "Maserati", "Modelo10", "Negro", "65.0", "2019", "Manual"},
+			    {"11", "Hannia", "2024/05/20", "2024/05/30", "1800.0", "BCD890", "Porsche", "Modelo11", "Rojo", "60.0", "2021", "Automática"},
+			    {"12", "Oscar", "2024/05/25", "2024/06/05", "2600.0", "EFG123", "Lamborghini", "Modelo12", "Negro", "70.0", "2018", "Manual"},
+			    {"13", "Armando", "2024/05/30", "2024/06/10", "2000.0", "HIJ456", "Bugatti", "Modelo13", "Rojo", "80.0", "2022", "Automática"},
+			    {"14", "Jassiel", "2024/06/04", "2024/06/14", "2900.0", "KLM789", "Bentley", "Modelo14", "Negro", "85.0", "2017", "Manual"},
+			    {"15", "Gamaliel", "2024/06/09", "2024/06/19", "2200.0", "NOP012", "BMW", "Modelo15", "Rojo", "70.0", "2023", "Automática"},
+			    {"16", "Ernesto", "2024/06/14", "2024/06/24", "2400.0", "OPQ345", "Ferrari", "Modelo16", "Rojo", "80.0", "2020", "Automática"},
+			    {"17", "Zanhia", "2024/06/19", "2024/06/29", "2600.0", "RST678", "Maserati", "Modelo17", "Negro", "90.0", "2019", "Manual"},
+			    {"18", "Michelle", "2024/06/24", "2024/07/04", "1900.0", "UVW901", "Porsche", "Modelo18", "Rojo", "85.0", "2021", "Automática"},
+			    {"19", "Soon", "2024/06/29", "2024/07/09", "2800.0", "XYZ234", "Lamborghini", "Modelo19", "Negro", "95.0", "2018", "Manual"},
+			    {"20", "Irais", "2024/07/04", "2024/07/14", "2200.0", "ABC567", "Bugatti", "Modelo20", "Rojo", "100.0", "2022", "Automática"},
+			    {"21", "Elvia", "2024/07/09", "2024/07/19", "3000.0", "DEF890", "Bentley", "Modelo21", "Negro", "110.0", "2017", "Manual"},
+			    {"22", "Juan", "2024/07/14", "2024/07/24", "2500.0", "GHI123", "BMW", "Modelo22", "Rojo", "95.0", "2023", "Automática"},
+			    {"23", "Cristopher", "2024/07/19", "2024/07/29", "3200.0", "JKL456", "MacLaren", "Modelo23", "Negro", "120.0", "2016", "Manual"},
+			    {"24", "Iram", "2024/07/24", "2024/08/03", "2700.0", "MNO789", "Ferrari", "Modelo24", "Rojo", "105.0", "2020", "Automática"},
+			    {"25", "Christian", "2024/07/29", "2024/08/08", "3400.0", "PQR012", "Maserati", "Modelo25", "Negro", "115.0", "2019", "Manual"},
+			    {"26", "Daniel", "2024/08/03", "2024/08/13", "2900.0", "STU345", "Porsche", "Modelo26", "Rojo", "110.0", "2021", "Automática"},
+			    {"27", "Adan", "2024/08/08", "2024/08/18", "3800.0", "VWX678", "Lamborghini", "Modelo27", "Negro", "125.0", "2018", "Manual"},
+			    {"28", "Carlos", "2024/08/13", "2024/08/23", "3100.0", "YZA901", "Bugatti", "Modelo28", "Rojo", "130.0", "2022", "Automática"},
+			    {"29", "Joshua", "2024/08/18", "2024/08/28", "4000.0", "BCD234", "Bentley", "Modelo29", "Negro", "140.0", "2017", "Manual"},
+			    {"30", "Alex", "2024/08/23", "2024/09/02", "3300.0", "EFG567", "BMW", "Modelo30", "Rojo", "125.0", "2023", "Automática"}
+			};
+
+		
+		JTable productoTable= new JTable(tableData, tableTitle);
+		productoTable.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
+		
+		 productoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	            @Override
+	            public void valueChanged(ListSelectionEvent e) {
+	                if (!e.getValueIsAdjusting()) {
+	                    int selectedRow = productoTable.getSelectedRow();
+	                    if (selectedRow != -1) { 
+	                        System.out.println("Fila seleccionada: " + selectedRow);
+	                        
+	                    }
+	                }
+	            }
+	        });
+		
+		JScrollPane tableScroll=new JScrollPane(productoTable);
+		tableScroll.setBounds(10, 97, 1105, 387);
+		panel_1.add(tableScroll);
+		
+		
+		JButton select= new JButton();
+		select.setIcon(new ImageIcon(getClass().getResource("/media/seleccionar.png")));
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("selec");
+				int selectedRow = productoTable.getSelectedRow();
+                if (selectedRow != -1) {
+				String[] rowData = new String[tableTitle.length];
+		        for (int i = 0; i < tableTitle.length; i++)
+		        {
+		            rowData[i] = productoTable.getValueAt(selectedRow, i).toString();
+		        }
+		        System.out.println("Datos de la fila seleccionada:");
+		        for (String data : rowData) {
+		            System.out.print(data + " ");
+		        }
+		        System.out.println();
+			}
+			}
+		});
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
+		select.setBounds(657, 507, 140, 50);
+		panel_1.add(select);
+		
+	
+		JButton regresar = new JButton();
+		regresar.setIcon(new ImageIcon(getClass().getResource("/media/regresar.png")));
+		regresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("vaciar");
+			}
+		});
+		regresar.setContentAreaFilled(false);
+		regresar.setBorderPainted(false);
+		regresar.setBounds(324, 507, 140, 50);
+		panel_1.add(regresar);
+	
 		
 	}
 }
