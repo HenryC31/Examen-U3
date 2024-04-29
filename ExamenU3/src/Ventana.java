@@ -28,7 +28,6 @@ public class Ventana extends JFrame {
 		JLabel label = new JLabel("Car - Rental");
 		label.setLocation(EXIT_ON_CLOSE, ABORT);
 		label.setFont(new Font("", Font.BOLD, 20));
-
 		this.add(panel);
 	}
 
