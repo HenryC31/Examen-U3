@@ -242,7 +242,7 @@ public class Window {
 		menuBar.add(mnNewMenu_1);
 //		this.login(frame);
 		vista_vehiculo = 1;
-		this.rentas(frmEditar);
+		this.editar(frmEditar);
 //		this.rentas(frame);
 	}
 
@@ -1134,6 +1134,314 @@ public class Window {
 		guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("rentar");
+			}
+		});
+		guardar.setContentAreaFilled(false);
+		guardar.setBorderPainted(false);
+		guardar.setBounds(253, 428, 140, 50);
+		panel_6.add(guardar);
+		
+		JButton atras = new JButton("");
+		atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
+		atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("atras");
+			}
+		});
+		atras.setContentAreaFilled(false);
+		atras.setBorderPainted(false);
+		atras.setBounds(0, 3, 72, 65);
+		panel_6.add(atras);
+		
+		JLabel iconPersona = new JLabel("");
+		iconPersona.setIcon(new ImageIcon(getClass().getResource("/media/persona.png")));
+		iconPersona.setOpaque(false);
+		iconPersona.setBounds(52, 112, 36, 36);
+		panel_6.add(iconPersona);
+		
+		JLabel iconFecha1 = new JLabel("");
+		iconFecha1.setIcon(new ImageIcon(getClass().getResource("/media/fecha1.png")));
+		iconFecha1.setOpaque(false);
+		iconFecha1.setBounds(52, 202, 36, 36);
+		panel_6.add(iconFecha1);
+		
+		JLabel iconFecha2 = new JLabel("");
+		iconFecha2.setIcon(new ImageIcon(getClass().getResource("/media/fecha2.png")));
+		iconFecha2.setOpaque(false);
+		iconFecha2.setBounds(52, 281, 36, 36);
+		panel_6.add(iconFecha2);
+
+		JLabel iconMonto = new JLabel("");
+		iconMonto.setIcon(new ImageIcon(getClass().getResource("/media/monto.png")));
+		iconMonto.setOpaque(false);
+		iconMonto.setBounds(52, 362, 36, 36);
+		panel_6.add(iconMonto);
+		
+		
+		
+		
+		JTextField inicialRespuesta = new JTextField();
+		inicialRespuesta.setColumns(10);
+		inicialRespuesta.setBackground(Color.WHITE);
+		inicialRespuesta.setBounds(93, 199, 300, 40);
+		panel_6.add(inicialRespuesta);
+		
+		JButton rentar = new JButton("", null);
+		rentar.setContentAreaFilled(false);
+		rentar.setBorderPainted(false);
+		rentar.setBounds(218, 443, 155, 60);
+		panel_6.add(rentar);
+		
+		JLabel fechaFinal = new JLabel("Fecha final");
+		fechaFinal.setHorizontalAlignment(SwingConstants.CENTER);
+		fechaFinal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		fechaFinal.setBackground(new Color(255, 255, 255));
+		fechaFinal.setBounds(82, 243, 155, 38);
+		panel_6.add(fechaFinal);
+		
+		JTextField finalResp = new JTextField();
+		finalResp.setColumns(10);
+		finalResp.setBackground(Color.WHITE);
+		finalResp.setBounds(93, 281, 300, 40);
+		panel_6.add(finalResp);
+		
+		JLabel costoFinal = new JLabel("Costo total");
+		costoFinal.setHorizontalAlignment(SwingConstants.CENTER);
+		costoFinal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		costoFinal.setBackground(Color.BLACK);
+		costoFinal.setBounds(87, 321, 155, 38);
+		panel_6.add(costoFinal);
+		
+		JLabel costoResp = new JLabel("82398");
+		costoResp.setOpaque(true);
+		costoResp.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp.setBackground(new Color(255, 255, 255));
+		costoResp.setBounds(96, 358, 297, 40);
+		panel_6.add(costoResp);
+		
+		
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(1, 6, 21));
+		panel_2.setBounds(611, 35, 479, 74);
+		panel_1.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblModelo = new JLabel("Modelo");
+		lblModelo.setForeground(new Color(255, 255, 255));
+		lblModelo.setBounds(0, 9, 126, 30);
+		lblModelo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo.setBackground(Color.BLACK);
+		panel_2.add(lblModelo);
+		
+		JLabel nomCliente_1_1 = new JLabel("Color");
+		nomCliente_1_1.setForeground(new Color(255, 255, 255));
+		nomCliente_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		nomCliente_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		nomCliente_1_1.setBackground(Color.BLACK);
+		nomCliente_1_1.setBounds(10, 36, 85, 30);
+		panel_2.add(nomCliente_1_1);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(169, 9, 300, 25);
+		panel_2.add(comboBox);
+		
+		JLabel costoResp_1 = new JLabel("82398");
+		costoResp_1.setBounds(169, 39, 300, 25);
+		panel_2.add(costoResp_1);
+		costoResp_1.setOpaque(true);
+		costoResp_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1.setBackground(Color.WHITE);
+		
+		JPanel panel_2_1 = new JPanel();
+		panel_2_1.setLayout(null);
+		panel_2_1.setBackground(new Color(1, 6, 21));
+		panel_2_1.setBounds(611, 446, 479, 103);
+		panel_1.add(panel_2_1);
+		
+		JLabel lblCostoPorDa = new JLabel("Costo por día");
+		lblCostoPorDa.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCostoPorDa.setForeground(Color.WHITE);
+		lblCostoPorDa.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblCostoPorDa.setBackground(Color.BLACK);
+		lblCostoPorDa.setBounds(0, 6, 168, 30);
+		panel_2_1.add(lblCostoPorDa);
+		
+		JLabel nomCliente_1_1_1 = new JLabel("Año");
+		nomCliente_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		nomCliente_1_1_1.setForeground(Color.WHITE);
+		nomCliente_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		nomCliente_1_1_1.setBackground(Color.BLACK);
+		nomCliente_1_1_1.setBounds(0, 36, 72, 30);
+		panel_2_1.add(nomCliente_1_1_1);
+		
+		JLabel costoResp_1_1 = new JLabel("82398");
+		costoResp_1_1.setOpaque(true);
+		costoResp_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1.setBackground(Color.WHITE);
+		costoResp_1_1.setBounds(169, 39, 300, 25);
+		panel_2_1.add(costoResp_1_1);
+		
+		JLabel nomCliente_1_1_1_1 = new JLabel("Transmisión");
+		nomCliente_1_1_1_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		nomCliente_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		nomCliente_1_1_1_1.setForeground(Color.WHITE);
+		nomCliente_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		nomCliente_1_1_1_1.setBackground(Color.BLACK);
+		nomCliente_1_1_1_1.setBounds(10, 66, 141, 30);
+		panel_2_1.add(nomCliente_1_1_1_1);
+		
+		JLabel costoResp_1_1_1 = new JLabel("82398");
+		costoResp_1_1_1.setOpaque(true);
+		costoResp_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1_1.setBackground(Color.WHITE);
+		costoResp_1_1_1.setBounds(169, 69, 300, 25);
+		panel_2_1.add(costoResp_1_1_1);
+		
+		JLabel costoResp_1_1_2 = new JLabel("82398");
+		costoResp_1_1_2.setOpaque(true);
+		costoResp_1_1_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1_2.setBackground(Color.WHITE);
+		costoResp_1_1_2.setBounds(169, 9, 300, 25);
+		panel_2_1.add(costoResp_1_1_2);
+		
+		
+		JButton flecha2 = new JButton();
+		flecha2.setContentAreaFilled(false);
+		flecha2.setBorderPainted(false);
+		flecha2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("1");
+			}
+		});
+		flecha2.setIcon(new ImageIcon(getClass().getResource("/media/flecha2.png")));
+		flecha2.setBounds(611, 375, 50, 60);
+		panel_1.add(flecha2);
+		
+		JButton flecha1 = new JButton();
+		flecha1.setIcon(new ImageIcon(getClass().getResource("/media/flecha1.png")));
+		flecha1.setContentAreaFilled(false);
+		flecha1.setBorderPainted(false);
+		flecha1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("2");
+			}
+		});
+		flecha1.setBounds(1040, 375, 50, 60);
+		panel_1.add(flecha1);
+		
+		JLabel colorCoche = new JLabel("Negro");
+		colorCoche.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		colorCoche.setVerticalAlignment(SwingConstants.BOTTOM);
+		colorCoche.setForeground(new Color(255, 255, 255));
+		colorCoche.setBounds(813, 395, 73, 30);
+		panel_1.add(colorCoche);
+		
+		JLabel marcaCarro = new JLabel("Buggatti");
+		marcaCarro.setVerticalAlignment(SwingConstants.BOTTOM);
+		marcaCarro.setForeground(Color.WHITE);
+		marcaCarro.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		marcaCarro.setBounds(801, 130, 106, 30);
+		panel_1.add(marcaCarro);
+		
+	}
+	private void editar(JFrame frame) {
+		frame.setTitle("Editar");
+		JPanel editarPanel=new JPanel();
+		editarPanel.setBackground(new Color(0, 0, 0));
+		
+		editarPanel.setBounds(0, 0, 1184, 638);
+		editarPanel.setLayout(null);
+	
+		String carro="Bugatti";
+		JLabel label = new JLabel(carro);
+		label.setFont(new Font("", Font.BOLD, 20));
+		frame.getContentPane().add(editarPanel);
+		
+		JPanel panel_1 = new JPanel(){
+			@Override
+			public void paintComponent(Graphics create)
+			{
+				super.paintComponent(create);
+				Graphics2D g2d=(Graphics2D)create;
+				
+				g2d.setColor(new Color(163,184,210));
+				g2d.fillRect(850,0, 310,580 );
+				
+				g2d.setColor(new Color(1,6,27));
+				g2d.fillOval(690, 118, 320, 320);
+				
+				g2d.setColor(new Color(1,6,27));
+				g2d.fillRect(21, 21, 506, 539);
+				
+				try {
+					BufferedImage image= ImageIO.read(getClass().getResource("/media/car.png"));
+					g2d.drawImage(image,610,170,450,200,null);
+					
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+			
+			}
+		};
+		
+		panel_1.setBackground(new Color(43, 59, 89));
+		panel_1.setBounds(29, 27, 1125, 580);
+		editarPanel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(163, 184, 210));
+		panel_6.setBounds(34, 35, 479, 514);
+		panel_1.add(panel_6);
+		panel_6.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Editar");
+		lblNewLabel.setBackground(new Color(0, 0, 0));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 40));
+		lblNewLabel.setBounds(164, 21, 140, 52);
+		panel_6.add(lblNewLabel);
+		
+		JLabel fechaInicial = new JLabel("Fecha inicial");
+		fechaInicial.setBackground(new Color(0, 0, 0));
+		fechaInicial.setHorizontalAlignment(SwingConstants.CENTER);
+		fechaInicial.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		fechaInicial.setBounds(93, 159, 149, 38);
+		panel_6.add(fechaInicial);
+		
+		JLabel nomCliente = new JLabel("Nombre del cliente");
+		nomCliente.setBackground(new Color(0, 0, 0));
+		nomCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		nomCliente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		nomCliente.setBounds(82, 73, 249, 38);
+		panel_6.add(nomCliente);
+		
+		JTextField respCliente = new JTextField();
+		respCliente.setBackground(new Color(255, 255, 255));
+		respCliente.setBounds(93, 112, 300, 40);
+		panel_6.add(respCliente);
+		respCliente.setColumns(10);
+		
+		JButton eliminar = new JButton();
+		eliminar.setIcon(new ImageIcon(getClass().getResource("/media/eliminar.png")));
+		eliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Eliminar cambios");
+			}
+		});
+		eliminar.setContentAreaFilled(false);
+		eliminar.setBorderPainted(false);
+		eliminar.setBounds(57, 428, 140, 50);
+		panel_6.add(eliminar);
+		
+		JButton guardar = new JButton();
+		guardar.setIcon(new ImageIcon(getClass().getResource("/media/guardarCambios.png")));
+		guardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Eliminar cambios");
 			}
 		});
 		guardar.setContentAreaFilled(false);
