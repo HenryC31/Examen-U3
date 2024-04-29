@@ -242,7 +242,7 @@ public class Window {
 		menuBar.add(mnNewMenu_1);
 //		this.login(frame);
 		vista_vehiculo = 1;
-		this.consultar(frmEditar);
+		this.consultaIndividual(frmEditar);
 //		this.rentas(frame);
 	}
 
@@ -1795,6 +1795,294 @@ public class Window {
 		regresar.setBounds(324, 507, 140, 50);
 		panel_1.add(regresar);
 	
+		
+	}
+	
+	private void consultaIndividual(JFrame frame) {
+		frame.setTitle("Consulta individual");
+		JPanel consultaIndiPanel=new JPanel();
+		consultaIndiPanel.setBackground(new Color(0, 0, 0));
+		
+		consultaIndiPanel.setBounds(0, 0, 1184, 638);
+		consultaIndiPanel.setLayout(null);
+	
+		String carro="Bugatti";
+		JLabel label = new JLabel(carro);
+		label.setFont(new Font("", Font.BOLD, 20));
+		frame.getContentPane().add(consultaIndiPanel);
+		
+		JPanel panel_1 = new JPanel(){
+			@Override
+			public void paintComponent(Graphics create)
+			{
+				super.paintComponent(create);
+				Graphics2D g2d=(Graphics2D)create;
+				
+				g2d.setColor(new Color(163,184,210));
+				g2d.fillRect(820,0, 340,580 );
+				
+				g2d.setColor(new Color(1,6,27));
+				g2d.fillOval(620, 100, 400, 400);
+				
+				g2d.setColor(new Color(1,6,27));
+				g2d.fillRect(70, 51, 430, 479);
+				
+				try {
+					BufferedImage image= ImageIO.read(getClass().getResource("/media/car.png"));
+					g2d.drawImage(image,570,180,500,240,null);
+					
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+			
+			}
+		};
+		
+		panel_1.setBackground(new Color(43, 59, 89));
+		panel_1.setBounds(29, 27, 1125, 580);
+		consultaIndiPanel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(163, 184, 210));
+		panel_6.setBounds(34, 35, 479, 514);
+		panel_1.add(panel_6);
+		panel_6.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Consulta individual");
+		lblNewLabel.setBackground(new Color(0, 0, 0));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
+		lblNewLabel.setBounds(52, 11, 418, 52);
+		panel_6.add(lblNewLabel);
+		
+		JButton eliminar = new JButton();
+		eliminar.setIcon(new ImageIcon(getClass().getResource("/media/elim.png")));
+		eliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Eliminar cambios");
+			}
+		});
+		eliminar.setContentAreaFilled(false);
+		eliminar.setBorderPainted(false);
+		eliminar.setBounds(68, 457, 140, 50);
+		panel_6.add(eliminar);
+		
+		JButton guardar = new JButton();
+		guardar.setIcon(new ImageIcon(getClass().getResource("/media/editar.png")));
+		guardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Eliminar cambios");
+			}
+		});
+		guardar.setContentAreaFilled(false);
+		guardar.setBorderPainted(false);
+		guardar.setBounds(259, 457, 140, 50);
+		panel_6.add(guardar);
+		
+		JButton atras = new JButton("");
+		atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
+		atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("atras");
+			}
+		});
+		atras.setContentAreaFilled(false);
+		atras.setBorderPainted(false);
+		atras.setBounds(0, 3, 72, 65);
+		panel_6.add(atras);
+		
+		JButton rentar = new JButton("", null);
+		rentar.setContentAreaFilled(false);
+		rentar.setBorderPainted(false);
+		rentar.setBounds(218, 443, 155, 60);
+		panel_6.add(rentar);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 72, 460, 156);
+		panel_6.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel nomCliente = new JLabel("Cliente");
+		nomCliente.setBounds(2, 38, 92, 24);
+		panel_3.add(nomCliente);
+		nomCliente.setBackground(new Color(0, 0, 0));
+		nomCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		nomCliente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		
+		JLabel costoResp_2 = new JLabel("82398");
+		costoResp_2.setBounds(175, 10, 275, 21);
+		panel_3.add(costoResp_2);
+		costoResp_2.setOpaque(true);
+		costoResp_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2.setBackground(Color.WHITE);
+		
+		JLabel fechaInicial = new JLabel("Fecha inicial");
+		fechaInicial.setBounds(4, 66, 149, 24);
+		panel_3.add(fechaInicial);
+		fechaInicial.setBackground(new Color(0, 0, 0));
+		fechaInicial.setHorizontalAlignment(SwingConstants.CENTER);
+		fechaInicial.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		
+		JLabel fechaFinal = new JLabel("Fecha final");
+		fechaFinal.setBounds(6, 88, 129, 38);
+		panel_3.add(fechaFinal);
+		fechaFinal.setHorizontalAlignment(SwingConstants.CENTER);
+		fechaFinal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		fechaFinal.setBackground(new Color(255, 255, 255));
+		
+		JLabel costoFinal = new JLabel("Costo total");
+		costoFinal.setBounds(2, 115, 139, 38);
+		panel_3.add(costoFinal);
+		costoFinal.setHorizontalAlignment(SwingConstants.CENTER);
+		costoFinal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		costoFinal.setBackground(Color.BLACK);
+		
+		JLabel costoResp_2_1 = new JLabel("82398");
+		costoResp_2_1.setOpaque(true);
+		costoResp_2_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_1.setBackground(Color.WHITE);
+		costoResp_2_1.setBounds(175, 38, 275, 21);
+		panel_3.add(costoResp_2_1);
+		
+		JLabel costoResp_2_1_1 = new JLabel("82398");
+		costoResp_2_1_1.setOpaque(true);
+		costoResp_2_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_1_1.setBackground(Color.WHITE);
+		costoResp_2_1_1.setBounds(175, 66, 275, 21);
+		panel_3.add(costoResp_2_1_1);
+		
+		JLabel costoResp_2_1_1_1 = new JLabel("82398");
+		costoResp_2_1_1_1.setOpaque(true);
+		costoResp_2_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_1_1_1.setBackground(Color.WHITE);
+		costoResp_2_1_1_1.setBounds(175, 97, 275, 21);
+		panel_3.add(costoResp_2_1_1_1);
+		
+		JLabel lblNoDeRenta = new JLabel("No. de Renta");
+		lblNoDeRenta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNoDeRenta.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblNoDeRenta.setBackground(Color.BLACK);
+		lblNoDeRenta.setBounds(5, 8, 159, 24);
+		panel_3.add(lblNoDeRenta);
+		
+		JLabel costoResp_2_1_1_1_1 = new JLabel("82398");
+		costoResp_2_1_1_1_1.setOpaque(true);
+		costoResp_2_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_1_1_1_1.setBackground(Color.WHITE);
+		costoResp_2_1_1_1_1.setBounds(175, 125, 275, 21);
+		panel_3.add(costoResp_2_1_1_1_1);
+		
+		JPanel panel_3_1 = new JPanel();
+		panel_3_1.setBackground(new Color(1, 6, 26));
+		panel_3_1.setBounds(10, 242, 460, 207);
+		panel_6.add(panel_3_1);
+		panel_3_1.setLayout(null);
+		
+		JLabel lblMatricula = new JLabel("Matricula");
+		lblMatricula.setForeground(new Color(255, 255, 255));
+		lblMatricula.setBounds(0, 6, 118, 30);
+		lblMatricula.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMatricula.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblMatricula.setBackground(Color.BLACK);
+		panel_3_1.add(lblMatricula);
+		
+		JLabel lblModelo_1 = new JLabel("Modelo");
+		lblModelo_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo_1.setForeground(Color.WHITE);
+		lblModelo_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo_1.setBackground(Color.BLACK);
+		lblModelo_1.setBounds(0, 64, 97, 30);
+		panel_3_1.add(lblModelo_1);
+		
+		JLabel lblModelo_1_1 = new JLabel("Año");
+		lblModelo_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo_1_1.setForeground(Color.WHITE);
+		lblModelo_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo_1_1.setBackground(Color.BLACK);
+		lblModelo_1_1.setBounds(0, 90, 52, 30);
+		panel_3_1.add(lblModelo_1_1);
+		
+		JLabel lblModelo_1_1_1 = new JLabel("Transmisión");
+		lblModelo_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo_1_1_1.setForeground(Color.WHITE);
+		lblModelo_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo_1_1_1.setBackground(Color.BLACK);
+		lblModelo_1_1_1.setBounds(0, 115, 146, 30);
+		panel_3_1.add(lblModelo_1_1_1);
+		
+		JLabel lblModelo_1_1_1_1 = new JLabel("Color");
+		lblModelo_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo_1_1_1_1.setForeground(Color.WHITE);
+		lblModelo_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo_1_1_1_1.setBackground(Color.BLACK);
+		lblModelo_1_1_1_1.setBounds(0, 143, 72, 30);
+		panel_3_1.add(lblModelo_1_1_1_1);
+		
+		JLabel lblModelo_1_2 = new JLabel("Marca");
+		lblModelo_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo_1_2.setForeground(Color.WHITE);
+		lblModelo_1_2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo_1_2.setBackground(Color.BLACK);
+		lblModelo_1_2.setBounds(0, 35, 79, 30);
+		panel_3_1.add(lblModelo_1_2);
+		
+		JLabel lblModelo_1_1_1_1_1 = new JLabel("Precio por día");
+		lblModelo_1_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo_1_1_1_1_1.setForeground(Color.WHITE);
+		lblModelo_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo_1_1_1_1_1.setBackground(Color.BLACK);
+		lblModelo_1_1_1_1_1.setBounds(0, 168, 167, 30);
+		panel_3_1.add(lblModelo_1_1_1_1_1);
+		
+		JLabel costoResp_2_2 = new JLabel("82398");
+		costoResp_2_2.setOpaque(true);
+		costoResp_2_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_2.setBackground(Color.WHITE);
+		costoResp_2_2.setBounds(175, 11, 275, 21);
+		panel_3_1.add(costoResp_2_2);
+		
+		JLabel costoResp_2_2_1 = new JLabel("82398");
+		costoResp_2_2_1.setOpaque(true);
+		costoResp_2_2_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_2_1.setBackground(Color.WHITE);
+		costoResp_2_2_1.setBounds(175, 38, 275, 21);
+		panel_3_1.add(costoResp_2_2_1);
+		
+		JLabel costoResp_2_2_1_1 = new JLabel("82398");
+		costoResp_2_2_1_1.setOpaque(true);
+		costoResp_2_2_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_2_1_1.setBackground(Color.WHITE);
+		costoResp_2_2_1_1.setBounds(175, 64, 275, 21);
+		panel_3_1.add(costoResp_2_2_1_1);
+		
+		JLabel costoResp_2_2_1_1_1 = new JLabel("82398");
+		costoResp_2_2_1_1_1.setOpaque(true);
+		costoResp_2_2_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_2_1_1_1.setBackground(Color.WHITE);
+		costoResp_2_2_1_1_1.setBounds(175, 90, 275, 21);
+		panel_3_1.add(costoResp_2_2_1_1_1);
+		
+		JLabel costoResp_2_2_1_1_1_1 = new JLabel("82398");
+		costoResp_2_2_1_1_1_1.setOpaque(true);
+		costoResp_2_2_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_2_1_1_1_1.setBackground(Color.WHITE);
+		costoResp_2_2_1_1_1_1.setBounds(175, 117, 275, 21);
+		panel_3_1.add(costoResp_2_2_1_1_1_1);
+		
+		JLabel costoResp_2_2_1_1_1_1_1 = new JLabel("82398");
+		costoResp_2_2_1_1_1_1_1.setOpaque(true);
+		costoResp_2_2_1_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_2_1_1_1_1_1.setBackground(Color.WHITE);
+		costoResp_2_2_1_1_1_1_1.setBounds(175, 144, 275, 21);
+		panel_3_1.add(costoResp_2_2_1_1_1_1_1);
+		
+		JLabel costoResp_2_2_1_1_1_1_1_1 = new JLabel("82398");
+		costoResp_2_2_1_1_1_1_1_1.setOpaque(true);
+		costoResp_2_2_1_1_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_2_2_1_1_1_1_1_1.setBackground(Color.WHITE);
+		costoResp_2_2_1_1_1_1_1_1.setBounds(175, 171, 275, 21);
+		panel_3_1.add(costoResp_2_2_1_1_1_1_1_1);
 		
 	}
 }
