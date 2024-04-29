@@ -3,10 +3,14 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +22,9 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Window {
@@ -30,6 +37,8 @@ public class Window {
 	JPanel panelVehiculos = new JPanel();
 	JPanel panelRentas = new JPanel();
 	JPanel paneles[]= {panel,panelVehiculos,panelRentas};
+	ImageIcon imagenBoton = new ImageIcon(getClass().getResource("/media/botonLogin.png"));
+	Image boton = imagenBoton.getImage();
 
 	/**
 	 * Launch the application.
@@ -204,9 +213,17 @@ public class Window {
 	}
 	public void login(JFrame frame) {
 		frame.setTitle("Login");
+		panel.setBackground(new Color(255, 255, 255));
 		
 		panel.setBounds(0, 0, 1184, 638);
-		panel.setLayout(new BorderLayout());
+		panel.setLayout(null);
+//		try {
+//			BufferedImage image = ImageIO.read(getClass().getResource("/media/puntos.png"));
+//		
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	
 		JLabel label = new JLabel("Car - Rental");
 		label.setFont(new Font("", Font.BOLD, 20));
@@ -220,84 +237,105 @@ public class Window {
 				Graphics2D g2d=(Graphics2D)create;
 				
 				
-				g2d.setColor(new Color(81,151,216));
-				g2d.fillRect(0, 0, 850,650 );
-				g2d.setColor(Color.black);
-				g2d.fillOval(650, 100, 400, 400);
-				g2d.setColor(new Color(217,217,217));
-				g2d.fillRect(75, 25, 435, 570);
+				g2d.setColor(new Color(43,59,89));
+				g2d.fillRect(15, 15, 800,550 );
+				
+				g2d.setColor(new Color(163,184,210));
+				g2d.fillRect(815,15, 295,550 );
+				
+				g2d.setColor(new Color(1,6,27));
+				g2d.fillOval(620, 100, 400, 400);
+				
+				g2d.setColor(new Color(1,6,27));
+				g2d.fillRect(70, 51, 430, 479);
+				
+				try {
+					BufferedImage image= ImageIO.read(getClass().getResource("/media/car.png"));
+					g2d.drawImage(image,570,180,500,240,null);
+					
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+//				try {
+//					BufferedImage image= ImageIO.read(getClass().getResource("/media/circul.png"));
+//					g2d.drawImage(image,150,150,500,500,null);
+//					
+//				}catch(IOException e) {
+//					e.printStackTrace();
+//				}
 			}
 		};
 		
-		panel_1.setBackground(new Color(205,236,242));
-		panel_1.setBounds(10, 0, 10, 10);
-		panel.add(panel_1, BorderLayout.CENTER);
+		panel_1.setBackground(new Color(0, 0, 0));
+		panel_1.setBounds(29, 27, 1125, 580);
+		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(new Color(255, 255, 255));
-		panel_6.setBounds(87, 40, 410, 540);
+		panel_6.setBackground(new Color(163, 184, 210));
+		panel_6.setBounds(79, 61, 410, 459);
 		panel_1.add(panel_6);
 		panel_6.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Login");
+		lblNewLabel.setBackground(new Color(0, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD, 40));
-		lblNewLabel.setBounds(139, 49, 140, 45);
+		lblNewLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 40));
+		lblNewLabel.setBounds(129, 29, 140, 52);
 		panel_6.add(lblNewLabel);
 		
 		JLabel lblUsuario = new JLabel("Contraseña");
+		lblUsuario.setBackground(new Color(0, 0, 0));
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsuario.setFont(new Font("Tw Cen MT", Font.BOLD, 25));
-		lblUsuario.setBounds(57, 238, 155, 38);
+		lblUsuario.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblUsuario.setBounds(53, 230, 155, 38);
 		panel_6.add(lblUsuario);
 		
 		JLabel lblUsuario_1 = new JLabel("Nombre de usuario");
+		lblUsuario_1.setBackground(new Color(0, 0, 0));
 		lblUsuario_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsuario_1.setFont(new Font("Tw Cen MT", Font.BOLD, 25));
-		lblUsuario_1.setBounds(63, 123, 226, 38);
+		lblUsuario_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblUsuario_1.setBounds(53, 119, 249, 38);
 		panel_6.add(lblUsuario_1);
 		
 		textField = new JTextField();
-		textField.setBackground(new Color(221, 239, 255));
-		textField.setBounds(65, 172, 300, 40);
+		textField.setBackground(new Color(255, 255, 255));
+		textField.setBounds(63, 168, 300, 40);
 		panel_6.add(textField);
 		textField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBackground(new Color(221, 239, 255));
-		passwordField.setBounds(67, 287, 300, 40);
+		passwordField.setBackground(new Color(255, 255, 255));
+		passwordField.setBounds(63, 279, 300, 40);
 		panel_6.add(passwordField);
 		
-		JButton btnNewButton = new JButton("Login");
-		btnNewButton.setBackground(new Color(81, 151, 216));
-		btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD, 25));
-		btnNewButton.setBounds(139, 425, 130, 38);
+		JButton btnNewButton = new JButton("",imagenBoton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("login");
+			}
+		});
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setBounds(130, 358, 155, 60);
 		panel_6.add(btnNewButton);
 		
+		JLabel puntos=new JLabel();
+		puntos.setBounds(-20, 1, 150, 111);
+		puntos.setIcon(new ImageIcon(getClass().getResource("/media/puntos.png")));
+		panel.add(puntos);
+		
+		JLabel puntos2=new JLabel();
+		puntos2.setBounds(1053, 527, 150, 111);
+		puntos2.setIcon(new ImageIcon(getClass().getResource("/media/puntos.png")));
+		panel.add(puntos2);
+		
+		
 		JLabel lblNewLabel_1 = new JLabel("CarRental");
+		lblNewLabel_1.setForeground(Color.black);
 		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.BOLD, 40));
-		lblNewLabel_1.setBounds(773, 56, 167, 45);
+		lblNewLabel_1.setBounds(735, 50, 167, 49);
 		panel_1.add(lblNewLabel_1);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(0, 0, 0));
-		panel_2.setBounds(0, 21, 10, 10);
-		panel.add(panel_2,BorderLayout.NORTH);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(0, 0, 0));
-		panel_3.setBounds(0, 48, 10, 10);
-		panel.add(panel_3,BorderLayout.SOUTH);
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(0, 0, 0));
-		panel_4.setBounds(10, 79, 10, 10);
-		panel.add(panel_4,BorderLayout.EAST);
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(0, 0, 0));
-		panel_5.setBounds(10, 79, 10, 10);
-		panel.add(panel_5,BorderLayout.WEST);
 	}
 	
 	public void  vehiculos (JFrame frame) {
@@ -312,8 +350,10 @@ public class Window {
 	
 	private void rentas(JFrame frame) {
 		frame.setTitle("Rentas");
+		panelRentas.setBackground(Color.pink);
 		panelRentas.setBounds(0, 0, 1184, 638);
 		panelRentas.setLayout(null);
+		frame.getContentPane().add(panelRentas);
 		
 	}
 }
