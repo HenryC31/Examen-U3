@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -232,8 +233,9 @@ public class Window {
 		});
 		menuBar.add(mnNewMenu_3);
 		menuBar.add(mnNewMenu_1);
-		this.login(frame);
-//		this.vehiculos(frame);
+//		this.login(frame);
+		vista_vehiculo = 1;
+		this.vehiculos(frame);
 //		this.rentas(frame);
 	}
 
@@ -355,7 +357,12 @@ public class Window {
 		panelVehiculos.setLayout(null);
 
 		switch (vista_vehiculo) {
-		case 1: // Case Añadir Vehículo
+		/*
+		 * 
+		 * Case Añadir Vehículo
+		 * 
+		 */
+		case 1:
 			System.out.println("Añadir");
 			panelVehiculos.removeAll();
 			JPanel panel_agregar_vehiculo = new JPanel() {
@@ -382,8 +389,8 @@ public class Window {
 
 					try {
 //						Imágen carro
-						BufferedImage image = ImageIO.read(getClass().getResource(""));
-						g2d.drawImage(image, 570, 180, 500, 240, null);
+						BufferedImage image = ImageIO.read(getClass().getResource("/media/auto-misterioso.png"));
+						g2d.drawImage(image, 550, 150, 580, 300, null);
 
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -406,64 +413,94 @@ public class Window {
 			agregar_tag.setBackground(new Color(0, 0, 0));
 			agregar_tag.setHorizontalAlignment(SwingConstants.CENTER);
 			agregar_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
-			agregar_tag.setBounds(15, 2, 380, 45);
+			agregar_tag.setBounds(5, 2, 380, 45);
 			panel_formulario_agregar.add(agregar_tag);
 
 			JLabel marca_tag = new JLabel("Marca");
 			marca_tag.setBackground(new Color(0, 0, 0));
-			marca_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
-			marca_tag.setBounds(50, 55, 100, 30); // x + 10, y - 10
+			marca_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			marca_tag.setBounds(50, 64, 100, 20); // x + 10, y + 15
 			panel_formulario_agregar.add(marca_tag);
 
 			JTextField marca_txtfield = new JTextField();
 			marca_txtfield.setBackground(new Color(255, 255, 255));
-			marca_txtfield.setBounds(50, 87, 300, 30); // x + 10, y - 10
+			marca_txtfield.setBounds(50, 85, 300, 30); // y + 15
+			marca_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(marca_txtfield);
 			marca_txtfield.setColumns(10);
 
 			JLabel modelo_tag = new JLabel("Modelo");
 			modelo_tag.setBackground(new Color(0, 0, 0));
-			modelo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
-			modelo_tag.setBounds(50, 120, 100, 30); // x + 10, y - 10
+			modelo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			modelo_tag.setBounds(50, 120, 100, 20); // x + 10, y + 15
 			panel_formulario_agregar.add(modelo_tag);
 
 			JTextField modelo_txtfield = new JTextField();
 			modelo_txtfield.setBackground(new Color(255, 255, 255));
-			modelo_txtfield.setBounds(50, 152, 300, 30); // x + 10, y - 10
+			modelo_txtfield.setBounds(50, 141, 300, 30); // y + 15
+			modelo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(modelo_txtfield);
+
+			JLabel matricula_tag = new JLabel("Matrícula");
+			matricula_tag.setBackground(new Color(0, 0, 0));
+			matricula_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			matricula_tag.setBounds(50, 175, 100, 20); // x + 10, y + 15
+			panel_formulario_agregar.add(matricula_tag);
+
+			JTextField matricula_txtfield = new JTextField();
+			matricula_txtfield.setBackground(new Color(255, 255, 255));
+			matricula_txtfield.setBounds(50, 195, 300, 30); // y + 15
+			matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			panel_formulario_agregar.add(matricula_txtfield);
 
 			JLabel año_tag = new JLabel("Año");
 			año_tag.setBackground(new Color(0, 0, 0));
-			año_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
-			año_tag.setBounds(50, 185, 100, 30); // x + 10, y - 10
+			año_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			año_tag.setBounds(50, 230, 100, 20); // y + 60
 			panel_formulario_agregar.add(año_tag);
 
 			JTextField año_txtfield = new JTextField();
 			año_txtfield.setBackground(new Color(255, 255, 255));
-			año_txtfield.setBounds(50, 217, 300, 30); // x + 10, y - 10
+			año_txtfield.setBounds(50, 250, 130, 30); // y + 60
+			año_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(año_txtfield);
+
+			JLabel color_tag = new JLabel("Color");
+			color_tag.setBackground(new Color(0, 0, 0));
+			color_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			color_tag.setBounds(200, 230, 100, 20); // x + 10, y + 60
+			panel_formulario_agregar.add(color_tag);
+
+			String[] colores = { "Rojo", "Negro" };
+			JComboBox color_txtfield = new JComboBox(colores);
+			color_txtfield.setBackground(new Color(255, 255, 255));
+			color_txtfield.setBounds(200, 250, 150, 30); // y + 60
+			color_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			panel_formulario_agregar.add(color_txtfield);
 
 			JLabel trans_tag = new JLabel("Transmisión");
 			trans_tag.setBackground(new Color(0, 0, 0));
-			trans_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
-			trans_tag.setBounds(50, 250, 150, 30); // x + 10, y - 10
+			trans_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente reducido a 12
+			trans_tag.setBounds(50, 280, 150, 20); // x + 10, y - 10
 			panel_formulario_agregar.add(trans_tag);
 
 			String[] transmision = { "Automática", "Manual" };
 			JComboBox trans_txtfield = new JComboBox(transmision);
 			trans_txtfield.setBackground(new Color(255, 255, 255));
-			trans_txtfield.setBounds(50, 282, 300, 30); // x + 10, y - 10
+			trans_txtfield.setBounds(50, 301, 300, 30); // Ajuste en las coordenadas para alinear con la etiqueta
+			trans_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 			panel_formulario_agregar.add(trans_txtfield);
 
 			JLabel costo_tag = new JLabel("Costo (Por día)");
 			costo_tag.setBackground(new Color(0, 0, 0));
-			costo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
-			costo_tag.setBounds(50, 315, 200, 30); // x + 10, y - 10
+			costo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente reducido a 12
+			costo_tag.setBounds(50, 335, 200, 20); // x + 10, y - 10
 			panel_formulario_agregar.add(costo_tag);
 
 			JTextField costo_txtfield = new JTextField();
 			costo_txtfield.setBackground(new Color(255, 255, 255));
-			costo_txtfield.setBounds(50, 347, 300, 30); // x + 10, y - 10
+			costo_txtfield.setBounds(50, 356, 300, 30); // Ajuste en las coordenadas para alinear con la etiqueta
+			costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 			panel_formulario_agregar.add(costo_txtfield);
 
 			JButton boton_agregar = new JButton("Agregar");
@@ -482,7 +519,12 @@ public class Window {
 			frame.revalidate();
 			break;
 
-		case 2: // Case Editar Vehículo
+		/*
+		 * 
+		 * Case Editar Vehículo
+		 * 
+		 */
+		case 2:
 			System.out.println("Editar");
 			panelVehiculos.removeAll();
 
@@ -509,8 +551,8 @@ public class Window {
 					g2d.fillRect(70, 51, 430, 479);
 
 					try {
-//						Imágen carro
-						BufferedImage image = ImageIO.read(getClass().getResource("/media/car.png"));
+//					Imágen carro
+						BufferedImage image = ImageIO.read(getClass().getResource("/media/auto-misterioso.png"));
 						g2d.drawImage(image, 570, 180, 500, 240, null);
 
 					} catch (IOException e) {
@@ -522,6 +564,161 @@ public class Window {
 			panel_editar_vehiculo.setBounds(29, 27, 1125, 580);
 			panel_editar_vehiculo.setLayout(null);
 			panelVehiculos.add(panel_editar_vehiculo);
+
+			JPanel panel_formulario_editar = new JPanel();
+			panel_formulario_editar.setBackground(new Color(163, 184, 210));
+			panel_formulario_editar.setBounds(79, 61, 410, 459);
+			panel_editar_vehiculo.add(panel_formulario_editar);
+			panel_formulario_editar.setLayout(null);
+
+			JLabel editar_tag = new JLabel("Editar Vehículo");
+			editar_tag.setBackground(new Color(0, 0, 0));
+			editar_tag.setHorizontalAlignment(SwingConstants.CENTER);
+			editar_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
+			editar_tag.setBounds(5, 2, 380, 45);
+			panel_formulario_editar.add(editar_tag);
+
+			marca_tag = new JLabel("Marca");
+			marca_tag.setBackground(new Color(0, 0, 0));
+			marca_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			marca_tag.setBounds(50, 64, 100, 20); // x + 10, y + 15
+			marca_tag.setVisible(false);
+			panel_formulario_editar.add(marca_tag);
+
+			marca_txtfield = new JTextField();
+			marca_txtfield.setBackground(new Color(255, 255, 255));
+			marca_txtfield.setBounds(50, 85, 300, 30); // y + 15
+			marca_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			marca_txtfield.setVisible(false);
+			panel_formulario_editar.add(marca_txtfield);
+			marca_txtfield.setColumns(10);
+
+			modelo_tag = new JLabel("Modelo");
+			modelo_tag.setBackground(new Color(0, 0, 0));
+			modelo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			modelo_tag.setBounds(50, 120, 100, 20); // x + 10, y + 15
+			modelo_tag.setVisible(false);
+			panel_formulario_editar.add(modelo_tag);
+
+			modelo_txtfield = new JTextField();
+			modelo_txtfield.setBackground(new Color(255, 255, 255));
+			modelo_txtfield.setBounds(50, 141, 300, 30); // y + 15
+			modelo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			modelo_txtfield.setVisible(false);
+			panel_formulario_editar.add(modelo_txtfield);
+
+			matricula_tag = new JLabel("Matrícula");
+			matricula_tag.setBackground(new Color(0, 0, 0));
+			matricula_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			matricula_tag.setBounds(50, 175, 100, 20); // x + 10, y + 15
+			panel_formulario_editar.add(matricula_tag);
+
+			matricula_txtfield = new JTextField();
+			matricula_txtfield.setBackground(new Color(255, 255, 255));
+			matricula_txtfield.setBounds(50, 195, 300, 30); // y + 15
+			matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			panel_formulario_editar.add(matricula_txtfield);
+
+			año_tag = new JLabel("Año");
+			año_tag.setBackground(new Color(0, 0, 0));
+			año_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			año_tag.setBounds(50, 230, 100, 20); // y + 60
+			año_tag.setVisible(false);
+			panel_formulario_editar.add(año_tag);
+
+			año_txtfield = new JTextField();
+			año_txtfield.setBackground(new Color(255, 255, 255));
+			año_txtfield.setBounds(50, 250, 130, 30); // y + 60
+			año_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			año_txtfield.setVisible(false);
+			panel_formulario_editar.add(año_txtfield);
+
+			color_tag = new JLabel("Color");
+			color_tag.setBackground(new Color(0, 0, 0));
+			color_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			color_tag.setBounds(200, 230, 100, 20); // x + 10, y + 60
+			color_tag.setVisible(false);
+			panel_formulario_editar.add(color_tag);
+
+			String[] col = { "Rojo", "Negro" };
+			color_txtfield = new JComboBox(col);
+			color_txtfield.setBackground(new Color(255, 255, 255));
+			color_txtfield.setBounds(200, 250, 150, 30); // y + 60
+			color_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			color_txtfield.setVisible(false);
+			panel_formulario_editar.add(color_txtfield);
+
+			trans_tag = new JLabel("Transmisión");
+			trans_tag.setBackground(new Color(0, 0, 0));
+			trans_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente reducido a 12
+			trans_tag.setBounds(50, 280, 150, 20); // x + 10, y - 10
+			trans_tag.setVisible(false);
+			panel_formulario_editar.add(trans_tag);
+
+			String[] trans = { "Manual", "Automática" };
+			trans_txtfield = new JComboBox(trans);
+			trans_txtfield.setBackground(new Color(255, 255, 255));
+			trans_txtfield.setBounds(50, 301, 300, 30); // Ajuste en las coordenadas para alinear con la etiqueta
+			trans_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+			trans_txtfield.setVisible(false);
+			panel_formulario_editar.add(trans_txtfield);
+
+			costo_tag = new JLabel("Costo (Por día)");
+			costo_tag.setBackground(new Color(0, 0, 0));
+			costo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente reducido a 12
+			costo_tag.setBounds(50, 335, 200, 20); // x + 10, y - 10
+			costo_tag.setVisible(false);
+			panel_formulario_editar.add(costo_tag);
+
+			costo_txtfield = new JTextField();
+			costo_txtfield.setBackground(new Color(255, 255, 255));
+			costo_txtfield.setBounds(50, 356, 300, 30); // Ajuste en las coordenadas para alinear con la etiqueta
+			costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+			costo_txtfield.setVisible(false);
+			panel_formulario_editar.add(costo_txtfield);
+
+			JButton btn_guardar = new JButton("Guardar");
+			JButton btn_Buscar = new JButton("Buscar");
+			btn_Buscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					btn_guardar.setVisible(true);
+					marca_tag.setVisible(true);
+					marca_txtfield.setVisible(true);
+					modelo_tag.setVisible(true);
+					modelo_txtfield.setVisible(true);
+					año_tag.setVisible(true);
+					año_txtfield.setVisible(true);
+					color_tag.setVisible(true);
+					color_txtfield.setVisible(true);
+					trans_tag.setVisible(true);
+					trans_txtfield.setVisible(true);
+					costo_tag.setVisible(true);
+					costo_txtfield.setVisible(true);
+					btn_Buscar.setVisible(false);
+
+				}
+			});
+
+			btn_Buscar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btn_Buscar.setBounds(151, 261, 89, 23);
+			panel_formulario_editar.add(btn_Buscar);
+
+			btn_guardar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(panel_formulario_editar, "Vehículo modificado con éxito:)");
+					for (int i = 0; i < paneles.length; i++) {
+						frame.remove(paneles[i]);
+					}
+					vehiculos(frame);
+					frame.repaint();
+					frame.revalidate();
+				}
+			});
+
+			btn_guardar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btn_guardar.setBounds(151, 410, 89, 23);
+			btn_guardar.setVisible(false);
+			panel_formulario_editar.add(btn_guardar);
 
 			frame.repaint();
 			frame.revalidate();
@@ -544,7 +741,7 @@ public class Window {
 			break;
 		}
 
-		frame.add(panelVehiculos);
+		frame.getContentPane().add(panelVehiculos);
 		frame.repaint();
 		frame.revalidate();
 		frame.setTitle("Vehiculos");
