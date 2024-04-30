@@ -4,8 +4,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -43,8 +46,10 @@ public class Window {
 	JPanel editarPanel = new JPanel();
 	JPanel rentaPanel = new JPanel();
 	JPanel panelConsulta = new JPanel();
+	JPanel panelIniciado = new JPanel();
 	JPanel paneles[] = { panel, panelVehiculos, panelRentas, consultaIndiPanel, rentaPanel, panelCarros, editarPanel,
-			panelConsulta };
+			panelConsulta, panelIniciado };
+	boolean iniciado = false;;
 	ImageIcon imagenBoton = new ImageIcon(getClass().getResource("/media/botonLogin.png"));
 	Image boton = imagenBoton.getImage();
 	int vista_vehiculo = 0;
@@ -68,6 +73,11 @@ public class Window {
 		});
 	}
 
+	public Image geticonImage() {
+		Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icono.png"));
+		return retValue;
+	}
+
 	/**
 	 * Create the application.
 	 */
@@ -81,11 +91,15 @@ public class Window {
 	private void initialize() {
 		frmEditar = new JFrame();
 		frmEditar.setVisible(true);
+		ImageIcon icono = new ImageIcon(getClass().getResource("/media/carro-deportivo.png"));
+		frmEditar.setIconImage(icono.getImage());
 		frmEditar.setBounds(100, 100, 1200, 700);
 		frmEditar.getContentPane().setLayout(null);
 		frmEditar.setResizable(false);
 		frmEditar.setLocationRelativeTo(null);
 		frmEditar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+//		frmEditar.setIconImage(this.geticonImage());
 
 		JMenuBar menuBar = new JMenuBar();
 		frmEditar.setJMenuBar(menuBar);
@@ -102,7 +116,11 @@ public class Window {
 				for (int i = 0; i < paneles.length; i++) {
 					frmEditar.remove(paneles[i]);
 				}
-				login(frmEditar);
+				if (iniciado) {
+					loginIniciado(frmEditar);
+				} else
+					login(frmEditar);
+
 				frmEditar.repaint();
 				frmEditar.revalidate();
 			}
@@ -136,7 +154,48 @@ public class Window {
 		JMenu mnNewMenu_1 = new JMenu("Logout");
 		mnNewMenu_1.setBackground(new Color(81, 151, 216));
 		mnNewMenu_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));
+		mnNewMenu_1.addMouseListener(new MouseListener() {
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (iniciado) {
+					for (int i = 0; i < paneles.length; i++) {
+						frmEditar.remove(paneles[i]);
+					}
+					iniciado = false;
+					login(frmEditar);
+					frmEditar.repaint();
+					frmEditar.revalidate();
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes iniciar sesión primero");
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		/*
 		 * 
 		 * MenúItem Vehículo
@@ -151,11 +210,15 @@ public class Window {
 		agregar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vista_vehiculo = 1;
-				for (int i = 0; i < paneles.length; i++) {
-					frmEditar.remove(paneles[i]);
+				if (iniciado) {
+					vista_vehiculo = 1;
+					for (int i = 0; i < paneles.length; i++) {
+						frmEditar.remove(paneles[i]);
+					}
+					vehiculos(frmEditar);
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes iniciar sesión primero");
 				}
-				vehiculos(frmEditar);
 			}
 		});
 
@@ -163,11 +226,16 @@ public class Window {
 		editar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vista_vehiculo = 2;
-				for (int i = 0; i < paneles.length; i++) {
-					frmEditar.remove(paneles[i]);
+				if (iniciado) {
+					vista_vehiculo = 2;
+					for (int i = 0; i < paneles.length; i++) {
+						frmEditar.remove(paneles[i]);
+					}
+					vehiculos(frmEditar);
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes iniciar sesión primero");
 				}
-				vehiculos(frmEditar);
+
 			}
 		});
 
@@ -175,30 +243,22 @@ public class Window {
 		consultar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vista_vehiculo = 3;
-				for (int i = 0; i < paneles.length; i++) {
-					frmEditar.remove(paneles[i]);
+				if (iniciado) {
+					vista_vehiculo = 3;
+					for (int i = 0; i < paneles.length; i++) {
+						frmEditar.remove(paneles[i]);
+					}
+					vehiculos(frmEditar);
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes iniciar sesión primero");
 				}
-				vehiculos(frmEditar);
-			}
-		});
 
-		JMenuItem eliminar = new JMenuItem("Eliminar");
-		eliminar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				vista_vehiculo = 4;
-				for (int i = 0; i < paneles.length; i++) {
-					frmEditar.remove(paneles[i]);
-				}
-				vehiculos(frmEditar);
 			}
 		});
 
 		mnNewMenu_2.add(agregar);
 		mnNewMenu_2.add(editar);
 		mnNewMenu_2.add(consultar);
-		mnNewMenu_2.add(eliminar);
 
 		menuBar.add(mnNewMenu_2);
 
@@ -210,13 +270,18 @@ public class Window {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Lol, q bien");
-				for (int i = 0; i < paneles.length; i++) {
-					frmEditar.remove(paneles[i]);
+				if (iniciado = true) {
+					System.out.println("Lol, q bien");
+					for (int i = 0; i < paneles.length; i++) {
+						frmEditar.remove(paneles[i]);
+					}
+					rentas(frmEditar);
+					frmEditar.repaint();
+					frmEditar.revalidate();
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes iniciar sesión primero");
 				}
-				rentas(frmEditar);
-				frmEditar.repaint();
-				frmEditar.revalidate();
+
 			}
 
 			@Override
@@ -245,11 +310,74 @@ public class Window {
 		});
 		menuBar.add(mnNewMenu_3);
 		menuBar.add(mnNewMenu_1);
-//		this.login(frame);
+		this.login(frmEditar);
 		vista_vehiculo = 1;
-		this.rentas(frmEditar);
+//		this.rentas(frmEditar);
 //		this.rentas(frame);
 	}
+
+	public void loginIniciado(JFrame frame) {
+		frame.setTitle("Login");
+		panelIniciado.setBackground(new Color(0, 0, 0));
+
+		panelIniciado.setBounds(0, 0, 1184, 638);
+		panelIniciado.setLayout(null);
+
+		JLabel label = new JLabel("Car - Rental");
+		label.setFont(new Font("", Font.BOLD, 20));
+		frame.getContentPane().add(panelIniciado);
+
+		JPanel panel_1 = new JPanel() {
+			@Override
+			public void paintComponent(Graphics create) {
+				super.paintComponent(create);
+				Graphics2D g2d = (Graphics2D) create;
+
+				g2d.setColor(new Color(163, 184, 210));
+				g2d.fillRect(815, 0, 310, 580);
+
+				g2d.setColor(new Color(1, 6, 27));
+				g2d.fillOval(620, 100, 400, 400);
+
+				g2d.setColor(new Color(1, 6, 27));
+				g2d.fillRect(70, 51, 430, 479);
+
+				try {
+					BufferedImage image = ImageIO.read(getClass().getResource("/media/car.png"));
+					g2d.drawImage(image, 570, 180, 500, 240, null);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+
+		panel_1.setBackground(new Color(43, 59, 89));
+		panel_1.setBounds(29, 27, 1125, 580);
+		panelIniciado.add(panel_1);
+		panel_1.setLayout(null);
+
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(163, 184, 210));
+		panel_6.setBounds(79, 61, 410, 459);
+		panel_1.add(panel_6);
+		panel_6.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("Login");
+		lblNewLabel.setBackground(new Color(0, 0, 0));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 40));
+		lblNewLabel.setBounds(129, 29, 140, 52);
+		panel_6.add(lblNewLabel);
+
+		JLabel lblUsuario_1 = new JLabel("Sesión Iniciada");
+		lblUsuario_1.setBackground(new Color(0, 0, 0));
+		lblUsuario_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsuario_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblUsuario_1.setBounds(75, 119, 249, 38);
+		panel_6.add(lblUsuario_1);
+	}
+
 //Login
 	public void login(JFrame frame) {
 		frame.setTitle("Login");
@@ -316,6 +444,14 @@ public class Window {
 		passwordField.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		passwordField.setBounds(63, 279, 300, 40);
 		panel_6.add(passwordField);
+		passwordField.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isLetterOrDigit(c) || (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 
 		JLabel lblUsuario_1 = new JLabel("Nombre de usuario");
 		lblUsuario_1.setBackground(new Color(0, 0, 0));
@@ -330,6 +466,14 @@ public class Window {
 		respCliente.setBounds(63, 168, 300, 40);
 		panel_6.add(respCliente);
 		respCliente.setColumns(10);
+		respCliente.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isLetterOrDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 
 		JButton btnNewButton = new JButton("", imagenBoton);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -337,7 +481,6 @@ public class Window {
 				System.out.println("login");
 				String passw = new String(passwordField.getPassword());
 				String nom = respCliente.getText();
-				;
 
 				if (nom.length() <= 0) {
 					respCliente.setBorder(BorderFactory.createLineBorder(Color.red, 2));
@@ -352,7 +495,17 @@ public class Window {
 					passwordField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
 
 				}
-
+				if (!(nom.length() <= 0) && !passw.equals("")) {
+					iniciado = true;
+					respCliente.setText("");
+					passwordField.setText("");
+					for (int i = 0; i < paneles.length; i++) {
+						frmEditar.remove(paneles[i]);
+					}
+					rentas(frmEditar);
+					frmEditar.repaint();
+					frmEditar.revalidate();
+				}
 			}
 		});
 		btnNewButton.setContentAreaFilled(false);
@@ -367,7 +520,7 @@ public class Window {
 		panel_1.add(lblNewLabel_1);
 	}
 //logout
-	
+
 //Vehiculos
 	public void vehiculos(JFrame frame) {
 		panelVehiculos.setBounds(0, 0, 1184, 638);
@@ -383,13 +536,13 @@ public class Window {
 		case 1:
 			System.out.println("Añadir");
 			panelVehiculos.removeAll();
-			
+
 			JPanel panel_agregar_vehiculo = new JPanel() {
 				@Override
 				public void paintComponent(Graphics create) {
 					super.paintComponent(create);
 					Graphics2D g2d = (Graphics2D) create;
-					
+
 					g2d.setColor(new Color(163, 184, 210));
 					g2d.fillRect(850, 0, 310, 580);
 
@@ -409,20 +562,18 @@ public class Window {
 					}
 				}
 			};
-			
+
 			panel_agregar_vehiculo.setBackground(new Color(43, 59, 89));
 			panel_agregar_vehiculo.setBounds(29, 27, 1125, 580);
 			panel_agregar_vehiculo.setLayout(null);
 			panelVehiculos.add(panel_agregar_vehiculo);
 
-			
-			
 			JPanel panel_formulario_agregar = new JPanel();
 			panel_formulario_agregar.setBackground(new Color(163, 184, 210));
 			panel_formulario_agregar.setBounds(34, 35, 479, 514);
 			panel_agregar_vehiculo.add(panel_formulario_agregar);
 			panel_formulario_agregar.setLayout(null);
-			
+
 			JButton atras = new JButton("");
 			atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
 			atras.addActionListener(new ActionListener() {
@@ -453,6 +604,15 @@ public class Window {
 			marca_txtfield.setBounds(93, 95, 300, 40); // y + 15
 			marca_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(marca_txtfield);
+			marca_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isLetterOrDigit(c)
+							|| (Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+						e.consume(); // ignore event
+					}
+				}
+			});
 			marca_txtfield.setColumns(10);
 
 			JLabel modelo_tag = new JLabel("Modelo");
@@ -464,6 +624,15 @@ public class Window {
 			JTextField modelo_txtfield = new JTextField();
 			modelo_txtfield.setBackground(new Color(255, 255, 255));
 			modelo_txtfield.setBounds(93, 160, 300, 40); // y + 15
+			modelo_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isLetterOrDigit(c)
+							|| (Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+						e.consume(); // ignore event
+					}
+				}
+			});
 			modelo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(modelo_txtfield);
 
@@ -476,6 +645,15 @@ public class Window {
 			JTextField matricula_txtfield = new JTextField();
 			matricula_txtfield.setBackground(new Color(255, 255, 255));
 			matricula_txtfield.setBounds(93, 225, 300, 40); // y + 15
+			matricula_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isLetterOrDigit(c) || (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+						e.consume(); // ignore event
+					}
+				}
+			});
+
 			matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(matricula_txtfield);
 
@@ -488,6 +666,14 @@ public class Window {
 			JTextField año_txtfield = new JTextField();
 			año_txtfield.setBackground(new Color(255, 255, 255));
 			año_txtfield.setBounds(93, 290, 130, 40); // y + 60
+			año_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+						e.consume(); // ignore event
+					}
+				}
+			});
 			año_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(año_txtfield);
 
@@ -527,6 +713,15 @@ public class Window {
 			costo_txtfield.setBackground(new Color(255, 255, 255));
 			costo_txtfield.setBounds(93, 423, 300, 40); // Ajuste en las coordenadas para alinear con la etiqueta
 			costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+			costo_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+						e.consume(); // ignore event
+					}
+				}
+			});
+
 			panel_formulario_agregar.add(costo_txtfield);
 
 			JButton boton_agregar = new JButton("");
@@ -620,6 +815,15 @@ public class Window {
 			marca_txtfield.setBounds(50, 85, 300, 30); // y + 15
 			marca_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			marca_txtfield.setVisible(false);
+			marca_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isLetterOrDigit(c)
+							|| (Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+						e.consume();
+					}
+				}
+			});
 			panel_formulario_editar.add(marca_txtfield);
 			marca_txtfield.setColumns(10);
 
@@ -646,6 +850,15 @@ public class Window {
 			matricula_txtfield = new JTextField();
 			matricula_txtfield.setBackground(new Color(255, 255, 255));
 			matricula_txtfield.setBounds(50, 195, 300, 30); // y + 15
+			matricula_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isLetterOrDigit(c)
+							|| (Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+						e.consume(); // ignore event
+					}
+				}
+			});
 			matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_editar.add(matricula_txtfield);
 
@@ -660,6 +873,14 @@ public class Window {
 			año_txtfield.setBackground(new Color(255, 255, 255));
 			año_txtfield.setBounds(50, 250, 130, 30); // y + 60
 			año_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			año_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+						e.consume(); // ignore event
+					}
+				}
+			});
 			año_txtfield.setVisible(false);
 			panel_formulario_editar.add(año_txtfield);
 
@@ -705,6 +926,14 @@ public class Window {
 			costo_txtfield.setBounds(50, 356, 300, 30); // Ajuste en las coordenadas para alinear con la etiqueta
 			costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 			costo_txtfield.setVisible(false);
+			costo_txtfield.addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+						e.consume(); // ignore event
+					}
+				}
+			});
 			panel_formulario_editar.add(costo_txtfield);
 
 			JButton btn_guardar = new JButton("Guardar");
@@ -977,10 +1206,10 @@ public class Window {
 		frame.setTitle("Vehiculos");
 
 	}
-	public void consultarVehiculos(JFrame frame)
-	{
+
+	public void consultarVehiculos(JFrame frame) {
 		frame.setTitle("Consultar vehículos");
-		JPanel panelConsultaVehi=new JPanel();
+		JPanel panelConsultaVehi = new JPanel();
 		panelConsultaVehi.setBackground(new Color(0, 0, 0));
 		panelConsultaVehi.setBounds(0, 0, 1184, 638);
 		panelConsultaVehi.setLayout(null);
@@ -1018,43 +1247,37 @@ public class Window {
 		lblNewLabel_2.setBounds(0, 0, 1125, 70);
 		panel_1.add(lblNewLabel_2);
 
-		String tableTitle[] = { "Matricula", "Marca", "Modelo", "Año", "Transmisión", "Costo por día"};
-		String tableData[][] = {
-			    { "ABC123", "Ferrari", "Modelo30X", "2020", "Automática", "50.0" },
-			    { "DEF456", "Maserati", "Modelo43A", "2019", "Manual", "60.0" },
-			    { "GHI789", "Porsche", "Modelo21A", "2021", "Automática", "55.0" },
-			    { "JKL012", "Lamborghini", "Modelo89F", "2018", "Manual", "65.0" },
-			    { "MNO345", "Bugatti", "Modelo30X", "2022", "Automática", "70.0" },
-			    { "PQR678", "Bentley", "Modelo43A", "2017", "Manual", "75.0" },
-			    { "STU901", "BMW", "Modelo21A", "2023", "Automática", "55.0" },
-			    { "VWX234", "McLaren", "Modelo89F", "2016", "Manual", "80.0" },
-			    { "YZA567", "Ferrari", "Modelo30X", "2020", "Automática", "75.0" },
-			    { "BCD890", "Maserati", "Modelo43A", "2019", "Manual", "65.0" },
-			    { "EFG123", "Porsche", "Modelo21A", "2021", "Automática", "60.0" },
-			    { "HIJ456", "Lamborghini", "Modelo89F", "2018", "Manual", "70.0" },
-			    { "KLM789", "Bugatti", "Modelo30X", "2022", "Automática", "80.0" },
-			    { "NOP012", "Bentley", "Modelo43A", "2017", "Manual", "85.0" },
-			    { "OPQ345", "BMW", "Modelo21A", "2023", "Automática", "70.0" },
-			    { "RST678", "Ferrari", "Modelo30X", "2020", "Automática", "80.0" },
-			    { "UVW901", "Maserati", "Modelo43A", "2019", "Manual", "90.0" },
-			    { "XYZ234", "Porsche", "Modelo21A", "2021", "Automática", "85.0" },
-			    { "ABC567", "Lamborghini", "Modelo89F", "2018", "Manual", "95.0" },
-			    { "DEF890", "Bugatti", "Modelo30X", "2022", "Automática", "100.0" },
-			    { "GHI123", "Bentley", "Modelo43A", "2017", "Manual", "110.0" },
-			    { "JKL456", "BMW", "Modelo21A", "2023", "Automática", "95.0" },
-			    { "MNO789", "McLaren", "Modelo89F", "2016", "Manual", "120.0" },
-			    { "PQR012", "Ferrari", "Modelo30X", "2020", "Automática", "105.0" },
-			    { "STU345", "Maserati", "Modelo43A", "2019", "Manual", "115.0" },
-			    { "VWX678", "Porsche", "Modelo21A", "2021", "Automática", "110.0" },
-			    { "YZA901", "Lamborghini", "Modelo89F", "2018", "Manual", "125.0" },
-			    { "BCD234", "Bugatti", "Modelo30X", "2022", "Automática", "130.0" },
-			    { "EFG567", "Bentley", "Modelo43A", "2017", "Manual", "140.0" },
-			    { "HIJ890", "BMW", "Modelo21A", "2023", "Automática", "125.0" }
-			};
-
-
-
-		
+		String tableTitle[] = { "Matricula", "Marca", "Modelo", "Año", "Transmisión", "Costo por día" };
+		String tableData[][] = { { "ABC123", "Ferrari", "Modelo30X", "2020", "Automática", "50.0" },
+				{ "DEF456", "Maserati", "Modelo43A", "2019", "Manual", "60.0" },
+				{ "GHI789", "Porsche", "Modelo21A", "2021", "Automática", "55.0" },
+				{ "JKL012", "Lamborghini", "Modelo89F", "2018", "Manual", "65.0" },
+				{ "MNO345", "Bugatti", "Modelo30X", "2022", "Automática", "70.0" },
+				{ "PQR678", "Bentley", "Modelo43A", "2017", "Manual", "75.0" },
+				{ "STU901", "BMW", "Modelo21A", "2023", "Automática", "55.0" },
+				{ "VWX234", "McLaren", "Modelo89F", "2016", "Manual", "80.0" },
+				{ "YZA567", "Ferrari", "Modelo30X", "2020", "Automática", "75.0" },
+				{ "BCD890", "Maserati", "Modelo43A", "2019", "Manual", "65.0" },
+				{ "EFG123", "Porsche", "Modelo21A", "2021", "Automática", "60.0" },
+				{ "HIJ456", "Lamborghini", "Modelo89F", "2018", "Manual", "70.0" },
+				{ "KLM789", "Bugatti", "Modelo30X", "2022", "Automática", "80.0" },
+				{ "NOP012", "Bentley", "Modelo43A", "2017", "Manual", "85.0" },
+				{ "OPQ345", "BMW", "Modelo21A", "2023", "Automática", "70.0" },
+				{ "RST678", "Ferrari", "Modelo30X", "2020", "Automática", "80.0" },
+				{ "UVW901", "Maserati", "Modelo43A", "2019", "Manual", "90.0" },
+				{ "XYZ234", "Porsche", "Modelo21A", "2021", "Automática", "85.0" },
+				{ "ABC567", "Lamborghini", "Modelo89F", "2018", "Manual", "95.0" },
+				{ "DEF890", "Bugatti", "Modelo30X", "2022", "Automática", "100.0" },
+				{ "GHI123", "Bentley", "Modelo43A", "2017", "Manual", "110.0" },
+				{ "JKL456", "BMW", "Modelo21A", "2023", "Automática", "95.0" },
+				{ "MNO789", "McLaren", "Modelo89F", "2016", "Manual", "120.0" },
+				{ "PQR012", "Ferrari", "Modelo30X", "2020", "Automática", "105.0" },
+				{ "STU345", "Maserati", "Modelo43A", "2019", "Manual", "115.0" },
+				{ "VWX678", "Porsche", "Modelo21A", "2021", "Automática", "110.0" },
+				{ "YZA901", "Lamborghini", "Modelo89F", "2018", "Manual", "125.0" },
+				{ "BCD234", "Bugatti", "Modelo30X", "2022", "Automática", "130.0" },
+				{ "EFG567", "Bentley", "Modelo43A", "2017", "Manual", "140.0" },
+				{ "HIJ890", "BMW", "Modelo21A", "2023", "Automática", "125.0" } };
 
 		JTable productoTable = new JTable(tableData, tableTitle);
 		productoTable.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
@@ -1115,7 +1338,7 @@ public class Window {
 
 	private void consultaIndVehiculo(JFrame frame) {
 		frame.setTitle("Consulta individual de vehículo");
-		JPanel consultaIndVehiPanel=new JPanel();
+		JPanel consultaIndVehiPanel = new JPanel();
 		consultaIndVehiPanel.setBackground(new Color(0, 0, 0));
 
 		consultaIndVehiPanel.setBounds(0, 0, 1184, 638);
@@ -1324,13 +1547,12 @@ public class Window {
 		panel_3_1.add(precioDiaResult);
 
 	}
-	public void editarVehiculo(JFrame frame)
-	{
+
+	public void editarVehiculo(JFrame frame) {
 		panelVehiculos.setBounds(0, 0, 1184, 638);
 		panelVehiculos.setBackground(Color.black);
 		panelVehiculos.setLayout(null);
 
-		
 		System.out.println("Añadir");
 		panelVehiculos.removeAll();
 		frame.getContentPane().add(panelVehiculos);
@@ -1339,7 +1561,7 @@ public class Window {
 			public void paintComponent(Graphics create) {
 				super.paintComponent(create);
 				Graphics2D g2d = (Graphics2D) create;
-				
+
 				g2d.setColor(new Color(163, 184, 210));
 				g2d.fillRect(850, 0, 310, 580);
 
@@ -1359,20 +1581,18 @@ public class Window {
 				}
 			}
 		};
-		
+
 		panel_agregar_vehiculo.setBackground(new Color(43, 59, 89));
 		panel_agregar_vehiculo.setBounds(29, 27, 1125, 580);
 		panel_agregar_vehiculo.setLayout(null);
 		panelVehiculos.add(panel_agregar_vehiculo);
 
-		
-		
 		JPanel panel_formulario_agregar = new JPanel();
 		panel_formulario_agregar.setBackground(new Color(163, 184, 210));
 		panel_formulario_agregar.setBounds(34, 35, 479, 514);
 		panel_agregar_vehiculo.add(panel_formulario_agregar);
 		panel_formulario_agregar.setLayout(null);
-		
+
 		JButton atras = new JButton("");
 		atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
 		atras.addActionListener(new ActionListener() {
@@ -1402,9 +1622,18 @@ public class Window {
 		marca_txtfield.setBackground(new Color(255, 255, 255));
 		marca_txtfield.setBounds(93, 95, 300, 40); // y + 15
 		marca_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+		marca_txtfield.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isLetter(c) || Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE
+						|| c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_formulario_agregar.add(marca_txtfield);
 		marca_txtfield.setColumns(10);
-		
+
 		JLabel modelo_tag = new JLabel("Modelo");
 		modelo_tag.setBackground(new Color(0, 0, 0));
 		modelo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
@@ -1415,6 +1644,15 @@ public class Window {
 		modelo_txtfield.setBackground(new Color(255, 255, 255));
 		modelo_txtfield.setBounds(93, 160, 300, 40); // y + 15
 		modelo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
+		modelo_txtfield.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isLetterOrDigit(c)
+						|| (Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_formulario_agregar.add(modelo_txtfield);
 
 		JLabel matricula_tag = new JLabel("Matrícula");
@@ -1427,6 +1665,15 @@ public class Window {
 		matricula_txtfield.setBackground(new Color(255, 255, 255));
 		matricula_txtfield.setBounds(93, 225, 300, 40); // y + 15
 		matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
+		matricula_txtfield.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isLetterOrDigit(c)
+						|| (Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_formulario_agregar.add(matricula_txtfield);
 
 		JLabel año_tag = new JLabel("Año");
@@ -1439,6 +1686,14 @@ public class Window {
 		año_txtfield.setBackground(new Color(255, 255, 255));
 		año_txtfield.setBounds(93, 290, 130, 40); // y + 60
 		año_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+		año_txtfield.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_formulario_agregar.add(año_txtfield);
 
 		JLabel color_tag = new JLabel("Color");
@@ -1477,6 +1732,14 @@ public class Window {
 		costo_txtfield.setBackground(new Color(255, 255, 255));
 		costo_txtfield.setBounds(93, 423, 300, 40); // Ajuste en las coordenadas para alinear con la etiqueta
 		costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+		costo_txtfield.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_formulario_agregar.add(costo_txtfield);
 
 		JButton boton_agregar = new JButton("");
@@ -1498,8 +1761,8 @@ public class Window {
 		frame.repaint();
 		frame.revalidate();
 	}
-		
-	//Rentas---------------------------------------------------------------------------------------------
+
+	// Rentas---------------------------------------------------------------------------------------------
 	public void carros(JFrame frame) {
 		frame.setTitle("Carros");
 
@@ -1758,9 +2021,6 @@ public class Window {
 
 	}
 
-	
-
-	
 	private void rentas(JFrame frame) {
 		frame.setTitle("Rentas");
 
@@ -1836,6 +2096,15 @@ public class Window {
 		respCliente.setBackground(new Color(255, 255, 255));
 		respCliente.setBounds(93, 112, 300, 40);
 		panel_6.add(respCliente);
+		respCliente.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isLetter(c) || Character.isWhitespace(c) || c == KeyEvent.VK_BACK_SPACE
+						|| c == KeyEvent.VK_DELETE)) {
+					e.consume();
+				}
+			}
+		});
 		respCliente.setColumns(10);
 
 		JButton vaciar = new JButton();
@@ -1902,6 +2171,14 @@ public class Window {
 		inicialRespuesta.setColumns(10);
 		inicialRespuesta.setBackground(Color.WHITE);
 		inicialRespuesta.setBounds(93, 199, 300, 40);
+		inicialRespuesta.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || c == '/' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_6.add(inicialRespuesta);
 
 		JButton rentar = new JButton("", null);
@@ -1921,6 +2198,14 @@ public class Window {
 		finalResp.setColumns(10);
 		finalResp.setBackground(Color.WHITE);
 		finalResp.setBounds(93, 281, 300, 40);
+		finalResp.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || c == '/' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_6.add(finalResp);
 
 		JLabel costoFinal = new JLabel("Costo total");
@@ -1959,7 +2244,7 @@ public class Window {
 		nomCliente_1_1.setBounds(10, 36, 85, 30);
 		panel_2.add(nomCliente_1_1);
 
-		String[] modelos = {"Modelo30X", "Modelo43A", "Modelo21A", "Modelo89F"};
+		String[] modelos = { "Modelo30X", "Modelo43A", "Modelo21A", "Modelo89F" };
 
 		JComboBox comboBox = new JComboBox(modelos);
 		comboBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
@@ -2140,6 +2425,14 @@ public class Window {
 		respCliente.setBackground(new Color(255, 255, 255));
 		respCliente.setBounds(93, 112, 300, 40);
 		panel_6.add(respCliente);
+		respCliente.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume();
+				}
+			}
+		});
 		respCliente.setColumns(10);
 
 		JButton eliminar = new JButton();
@@ -2206,6 +2499,14 @@ public class Window {
 		inicialRespuesta.setColumns(10);
 		inicialRespuesta.setBackground(Color.WHITE);
 		inicialRespuesta.setBounds(93, 199, 300, 40);
+		inicialRespuesta.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || c == '/' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_6.add(inicialRespuesta);
 
 		JButton rentar = new JButton("", null);
@@ -2225,6 +2526,14 @@ public class Window {
 		finalResp.setColumns(10);
 		finalResp.setBackground(Color.WHITE);
 		finalResp.setBounds(93, 281, 300, 40);
+		finalResp.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || c == '/' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+					e.consume(); // ignore event
+				}
+			}
+		});
 		panel_6.add(finalResp);
 
 		JLabel costoFinal = new JLabel("Costo total");
@@ -2240,14 +2549,14 @@ public class Window {
 		costoResp.setBackground(new Color(255, 255, 255));
 		costoResp.setBounds(96, 358, 297, 40);
 		panel_6.add(costoResp);
-		
+
 		JLabel lblNoRenta = new JLabel("No.");
 		lblNoRenta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNoRenta.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 		lblNoRenta.setBackground(Color.BLACK);
 		lblNoRenta.setBounds(408, 18, 36, 38);
 		panel_6.add(lblNoRenta);
-		
+
 		JLabel lblNoResult = new JLabel("1");
 		lblNoResult.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNoResult.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
@@ -2277,7 +2586,7 @@ public class Window {
 		nomCliente_1_1.setBounds(10, 36, 85, 30);
 		panel_2.add(nomCliente_1_1);
 
-		String[] modelos = {"Modelo30X", "Modelo43A", "Modelo21A", "Modelo89F"};
+		String[] modelos = { "Modelo30X", "Modelo43A", "Modelo21A", "Modelo89F" };
 		JComboBox comboBox = new JComboBox(modelos);
 		comboBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
 		comboBox.setBackground(new Color(255, 255, 255));
@@ -2425,38 +2734,66 @@ public class Window {
 		String tableTitle[] = { "No. de renta", "Cliente", "Fecha inicial", "Fecha final", "Costo total", "Placas",
 				"Marca", "Modelo", "Color", "Costo por día", "Año", "Transmisión" };
 		String tableData[][] = {
-			    { "1", "Ehileen", "2024/04/01", "2024/04/10", "1500.0", "ABC123", "Ferrari", "Modelo30X", "Rojo", "50.0", "2020", "Automática" },
-			    { "2", "Henry", "2024/04/05", "2024/04/15", "2000.0", "XYZ789", "Maserati", "Modelo43A", "Negro", "60.0", "2019", "Manual" },
-			    { "3", "Kevin", "2024/04/10", "2024/04/20", "1800.0", "DEF456", "Porsche", "Modelo21A", "Rojo", "55.0", "2021", "Automática" },
-			    { "4", "Omar", "2024/04/15", "2024/04/25", "2200.0", "GHI789", "Lamborghini", "Modelo89F", "Negro", "65.0", "2018", "Manual" },
-			    { "5", "Roberto", "2024/04/20", "2024/04/30", "1700.0", "JKL012", "Bugatti", "Modelo30X", "Rojo", "70.0", "2022", "Automática" },
-			    { "6", "Melissa", "2024/04/25", "2024/05/05", "2500.0", "MNO345", "Bentley", "Modelo43A", "Negro", "75.0", "2017", "Manual" },
-			    { "7", "Heriberto", "2024/04/30", "2024/05/10", "1900.0", "PQR678", "BMW", "Modelo21A", "Rojo", "55.0", "2023", "Automática" },
-			    { "8", "Manuel", "2024/05/05", "2024/05/15", "2300.0", "STU901", "MacLaren", "Modelo89F", "Negro", "80.0", "2016", "Manual" },
-			    { "9", "Karim", "2024/05/10", "2024/05/20", "2100.0", "VWX234", "Ferrari", "Modelo30X", "Rojo", "75.0", "2020", "Automática" },
-			    { "10", "Ariel", "2024/05/15", "2024/05/25", "2400.0", "YZA567", "Maserati", "Modelo43A", "Negro", "65.0", "2019", "Manual" },
-			    { "11", "Hannia", "2024/05/20", "2024/05/30", "1800.0", "BCD890", "Porsche", "Modelo21A", "Rojo", "60.0", "2021", "Automática" },
-			    { "12", "Oscar", "2024/05/25", "2024/06/05", "2600.0", "EFG123", "Lamborghini", "Modelo89F", "Negro", "70.0", "2018", "Manual" },
-			    { "13", "Armando", "2024/05/30", "2024/06/10", "2000.0", "HIJ456", "Bugatti", "Modelo30X", "Rojo", "80.0", "2022", "Automática" },
-			    { "14", "Jassiel", "2024/06/04", "2024/06/14", "2900.0", "KLM789", "Bentley", "Modelo43A", "Negro", "85.0", "2017", "Manual" },
-			    { "15", "Gamaliel", "2024/06/09", "2024/06/19", "2200.0", "NOP012", "BMW", "Modelo21A", "Rojo", "70.0", "2023", "Automática" },
-			    { "16", "Ernesto", "2024/06/14", "2024/06/24", "2400.0", "OPQ345", "Ferrari", "Modelo30X", "Rojo", "80.0", "2020", "Automática" },
-			    { "17", "Zanhia", "2024/06/19", "2024/06/29", "2600.0", "RST678", "Maserati", "Modelo43A", "Negro", "90.0", "2019", "Manual" },
-			    { "18", "Michelle", "2024/06/24", "2024/07/04", "1900.0", "UVW901", "Porsche", "Modelo21A", "Rojo", "85.0", "2021", "Automática" },
-			    { "19", "Soon", "2024/06/29", "2024/07/09", "2800.0", "XYZ234", "Lamborghini", "Modelo89F", "Negro", "95.0", "2018", "Manual" },
-			    { "20", "Irais", "2024/07/04", "2024/07/14", "2200.0", "ABC567", "Bugatti", "Modelo30X", "Rojo", "100.0", "2022", "Automática" },
-			    { "21", "Elvia", "2024/07/09", "2024/07/19", "3000.0", "DEF890", "Bentley", "Modelo43A", "Negro", "110.0", "2017", "Manual" },
-			    { "22", "Juan", "2024/07/14", "2024/07/24", "2500.0", "GHI123", "BMW", "Modelo21A", "Rojo", "95.0", "2023", "Automática" },
-			    { "23", "Cristopher", "2024/07/19", "2024/07/29", "3200.0", "JKL456", "MacLaren", "Modelo89F", "Negro", "120.0", "2016", "Manual" },
-			    { "24", "Iram", "2024/07/24", "2024/08/03", "2700.0", "MNO789", "Ferrari", "Modelo30X", "Rojo", "105.0", "2020", "Automática" },
-			    { "25", "Christian", "2024/07/29", "2024/08/08", "3400.0", "PQR012", "Maserati", "Modelo43A", "Negro", "115.0", "2019", "Manual" },
-			    { "26", "Daniel", "2024/08/03", "2024/08/13", "2900.0", "STU345", "Porsche", "Modelo21A", "Rojo", "110.0", "2021", "Automática" },
-			    { "27", "Adan", "2024/08/08", "2024/08/18", "3800.0", "VWX678", "Lamborghini", "Modelo89F", "Negro", "125.0", "2018", "Manual" },
-			    { "28", "Carlos", "2024/08/13", "2024/08/23", "3100.0", "YZA901", "Bugatti", "Modelo30X", "Rojo", "130.0", "2022", "Automática" },
-			    { "29", "Joshua", "2024/08/18", "2024/08/28", "4000.0", "BCD234", "Bentley", "Modelo43A", "Negro", "140.0", "2017", "Manual" },
-			    { "30", "Alex", "2024/08/23", "2024/09/02", "3300.0", "EFG567", "BMW", "Modelo21A", "Rojo", "125.0", "2023", "Automática" }
-			};
-
+				{ "1", "Ehileen", "2024/04/01", "2024/04/10", "1500.0", "ABC123", "Ferrari", "Modelo30X", "Rojo",
+						"50.0", "2020", "Automática" },
+				{ "2", "Henry", "2024/04/05", "2024/04/15", "2000.0", "XYZ789", "Maserati", "Modelo43A", "Negro",
+						"60.0", "2019", "Manual" },
+				{ "3", "Kevin", "2024/04/10", "2024/04/20", "1800.0", "DEF456", "Porsche", "Modelo21A", "Rojo", "55.0",
+						"2021", "Automática" },
+				{ "4", "Omar", "2024/04/15", "2024/04/25", "2200.0", "GHI789", "Lamborghini", "Modelo89F", "Negro",
+						"65.0", "2018", "Manual" },
+				{ "5", "Roberto", "2024/04/20", "2024/04/30", "1700.0", "JKL012", "Bugatti", "Modelo30X", "Rojo",
+						"70.0", "2022", "Automática" },
+				{ "6", "Melissa", "2024/04/25", "2024/05/05", "2500.0", "MNO345", "Bentley", "Modelo43A", "Negro",
+						"75.0", "2017", "Manual" },
+				{ "7", "Heriberto", "2024/04/30", "2024/05/10", "1900.0", "PQR678", "BMW", "Modelo21A", "Rojo", "55.0",
+						"2023", "Automática" },
+				{ "8", "Manuel", "2024/05/05", "2024/05/15", "2300.0", "STU901", "MacLaren", "Modelo89F", "Negro",
+						"80.0", "2016", "Manual" },
+				{ "9", "Karim", "2024/05/10", "2024/05/20", "2100.0", "VWX234", "Ferrari", "Modelo30X", "Rojo", "75.0",
+						"2020", "Automática" },
+				{ "10", "Ariel", "2024/05/15", "2024/05/25", "2400.0", "YZA567", "Maserati", "Modelo43A", "Negro",
+						"65.0", "2019", "Manual" },
+				{ "11", "Hannia", "2024/05/20", "2024/05/30", "1800.0", "BCD890", "Porsche", "Modelo21A", "Rojo",
+						"60.0", "2021", "Automática" },
+				{ "12", "Oscar", "2024/05/25", "2024/06/05", "2600.0", "EFG123", "Lamborghini", "Modelo89F", "Negro",
+						"70.0", "2018", "Manual" },
+				{ "13", "Armando", "2024/05/30", "2024/06/10", "2000.0", "HIJ456", "Bugatti", "Modelo30X", "Rojo",
+						"80.0", "2022", "Automática" },
+				{ "14", "Jassiel", "2024/06/04", "2024/06/14", "2900.0", "KLM789", "Bentley", "Modelo43A", "Negro",
+						"85.0", "2017", "Manual" },
+				{ "15", "Gamaliel", "2024/06/09", "2024/06/19", "2200.0", "NOP012", "BMW", "Modelo21A", "Rojo", "70.0",
+						"2023", "Automática" },
+				{ "16", "Ernesto", "2024/06/14", "2024/06/24", "2400.0", "OPQ345", "Ferrari", "Modelo30X", "Rojo",
+						"80.0", "2020", "Automática" },
+				{ "17", "Zanhia", "2024/06/19", "2024/06/29", "2600.0", "RST678", "Maserati", "Modelo43A", "Negro",
+						"90.0", "2019", "Manual" },
+				{ "18", "Michelle", "2024/06/24", "2024/07/04", "1900.0", "UVW901", "Porsche", "Modelo21A", "Rojo",
+						"85.0", "2021", "Automática" },
+				{ "19", "Soon", "2024/06/29", "2024/07/09", "2800.0", "XYZ234", "Lamborghini", "Modelo89F", "Negro",
+						"95.0", "2018", "Manual" },
+				{ "20", "Irais", "2024/07/04", "2024/07/14", "2200.0", "ABC567", "Bugatti", "Modelo30X", "Rojo",
+						"100.0", "2022", "Automática" },
+				{ "21", "Elvia", "2024/07/09", "2024/07/19", "3000.0", "DEF890", "Bentley", "Modelo43A", "Negro",
+						"110.0", "2017", "Manual" },
+				{ "22", "Juan", "2024/07/14", "2024/07/24", "2500.0", "GHI123", "BMW", "Modelo21A", "Rojo", "95.0",
+						"2023", "Automática" },
+				{ "23", "Cristopher", "2024/07/19", "2024/07/29", "3200.0", "JKL456", "MacLaren", "Modelo89F", "Negro",
+						"120.0", "2016", "Manual" },
+				{ "24", "Iram", "2024/07/24", "2024/08/03", "2700.0", "MNO789", "Ferrari", "Modelo30X", "Rojo", "105.0",
+						"2020", "Automática" },
+				{ "25", "Christian", "2024/07/29", "2024/08/08", "3400.0", "PQR012", "Maserati", "Modelo43A", "Negro",
+						"115.0", "2019", "Manual" },
+				{ "26", "Daniel", "2024/08/03", "2024/08/13", "2900.0", "STU345", "Porsche", "Modelo21A", "Rojo",
+						"110.0", "2021", "Automática" },
+				{ "27", "Adan", "2024/08/08", "2024/08/18", "3800.0", "VWX678", "Lamborghini", "Modelo89F", "Negro",
+						"125.0", "2018", "Manual" },
+				{ "28", "Carlos", "2024/08/13", "2024/08/23", "3100.0", "YZA901", "Bugatti", "Modelo30X", "Rojo",
+						"130.0", "2022", "Automática" },
+				{ "29", "Joshua", "2024/08/18", "2024/08/28", "4000.0", "BCD234", "Bentley", "Modelo43A", "Negro",
+						"140.0", "2017", "Manual" },
+				{ "30", "Alex", "2024/08/23", "2024/09/02", "3300.0", "EFG567", "BMW", "Modelo21A", "Rojo", "125.0",
+						"2023", "Automática" } };
 
 		JTable productoTable = new JTable(tableData, tableTitle);
 		productoTable.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
