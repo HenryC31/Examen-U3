@@ -247,10 +247,10 @@ public class Window {
 		menuBar.add(mnNewMenu_1);
 //		this.login(frame);
 		vista_vehiculo = 1;
-		this.consultaIndividual(frmEditar);
+		this.rentas(frmEditar);
 //		this.rentas(frame);
 	}
-
+//Login
 	public void login(JFrame frame) {
 		frame.setTitle("Login");
 		panel.setBackground(new Color(0, 0, 0));
@@ -313,6 +313,7 @@ public class Window {
 		panel_6.add(lblUsuario);
 
 		JPasswordField passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		passwordField.setBounds(63, 279, 300, 40);
 		panel_6.add(passwordField);
 
@@ -324,6 +325,7 @@ public class Window {
 		panel_6.add(lblUsuario_1);
 
 		JTextField respCliente = new JTextField();
+		respCliente.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		respCliente.setBackground(new Color(255, 255, 255));
 		respCliente.setBounds(63, 168, 300, 40);
 		panel_6.add(respCliente);
@@ -364,9 +366,12 @@ public class Window {
 		lblNewLabel_1.setBounds(735, 50, 167, 49);
 		panel_1.add(lblNewLabel_1);
 	}
-
+//logout
+	
+//Vehiculos
 	public void vehiculos(JFrame frame) {
 		panelVehiculos.setBounds(0, 0, 1184, 638);
+		panelVehiculos.setBackground(Color.black);
 		panelVehiculos.setLayout(null);
 
 		switch (vista_vehiculo) {
@@ -378,27 +383,21 @@ public class Window {
 		case 1:
 			System.out.println("Añadir");
 			panelVehiculos.removeAll();
+			
 			JPanel panel_agregar_vehiculo = new JPanel() {
 				@Override
 				public void paintComponent(Graphics create) {
 					super.paintComponent(create);
 					Graphics2D g2d = (Graphics2D) create;
-
-					// Fondo azul oscuro
-					g2d.setColor(new Color(43, 59, 89));
-					g2d.fillRect(15, 15, 800, 550);
-
-					// Fondo azul claro
+					
 					g2d.setColor(new Color(163, 184, 210));
-					g2d.fillRect(815, 15, 295, 550);
+					g2d.fillRect(850, 0, 310, 580);
 
-					// Círculo de fondo
 					g2d.setColor(new Color(1, 6, 27));
-					g2d.fillOval(620, 100, 400, 400);
+					g2d.fillOval(690, 118, 320, 320);
 
-					// Sombra panel login
 					g2d.setColor(new Color(1, 6, 27));
-					g2d.fillRect(70, 51, 430, 479);
+					g2d.fillRect(21, 21, 506, 539);
 
 					try {
 //						Imágen carro
@@ -410,114 +409,132 @@ public class Window {
 					}
 				}
 			};
-
-			panel_agregar_vehiculo.setBackground(new Color(0, 0, 0));
+			
+			panel_agregar_vehiculo.setBackground(new Color(43, 59, 89));
 			panel_agregar_vehiculo.setBounds(29, 27, 1125, 580);
 			panel_agregar_vehiculo.setLayout(null);
 			panelVehiculos.add(panel_agregar_vehiculo);
 
+			
+			
 			JPanel panel_formulario_agregar = new JPanel();
 			panel_formulario_agregar.setBackground(new Color(163, 184, 210));
-			panel_formulario_agregar.setBounds(79, 61, 410, 459);
+			panel_formulario_agregar.setBounds(34, 35, 479, 514);
 			panel_agregar_vehiculo.add(panel_formulario_agregar);
 			panel_formulario_agregar.setLayout(null);
+			
+			JButton atras = new JButton("");
+			atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
+			atras.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("atras");
+				}
+			});
+			atras.setContentAreaFilled(false);
+			atras.setBorderPainted(false);
+			atras.setBounds(10, 10, 54, 54);
+			panel_formulario_agregar.add(atras);
 
 			JLabel agregar_tag = new JLabel("Agregar Vehículo");
 			agregar_tag.setBackground(new Color(0, 0, 0));
 			agregar_tag.setHorizontalAlignment(SwingConstants.CENTER);
-			agregar_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
-			agregar_tag.setBounds(5, 2, 380, 45);
+			agregar_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 38));
+			agregar_tag.setBounds(52, 8, 378, 52);
 			panel_formulario_agregar.add(agregar_tag);
 
 			JLabel marca_tag = new JLabel("Marca");
 			marca_tag.setBackground(new Color(0, 0, 0));
-			marca_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
-			marca_tag.setBounds(50, 64, 100, 20); // x + 10, y + 15
+			marca_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+			marca_tag.setBounds(93, 70, 84, 20); // x + 10, y + 15
 			panel_formulario_agregar.add(marca_tag);
 
 			JTextField marca_txtfield = new JTextField();
 			marca_txtfield.setBackground(new Color(255, 255, 255));
-			marca_txtfield.setBounds(50, 85, 300, 30); // y + 15
+			marca_txtfield.setBounds(93, 95, 300, 40); // y + 15
 			marca_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(marca_txtfield);
 			marca_txtfield.setColumns(10);
 
 			JLabel modelo_tag = new JLabel("Modelo");
 			modelo_tag.setBackground(new Color(0, 0, 0));
-			modelo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
-			modelo_tag.setBounds(50, 120, 100, 20); // x + 10, y + 15
+			modelo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+			modelo_tag.setBounds(93, 136, 100, 20); // x + 10, y + 15
 			panel_formulario_agregar.add(modelo_tag);
 
 			JTextField modelo_txtfield = new JTextField();
 			modelo_txtfield.setBackground(new Color(255, 255, 255));
-			modelo_txtfield.setBounds(50, 141, 300, 30); // y + 15
-			modelo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			modelo_txtfield.setBounds(93, 160, 300, 40); // y + 15
+			modelo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(modelo_txtfield);
 
 			JLabel matricula_tag = new JLabel("Matrícula");
 			matricula_tag.setBackground(new Color(0, 0, 0));
-			matricula_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
-			matricula_tag.setBounds(50, 175, 100, 20); // x + 10, y + 15
+			matricula_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+			matricula_tag.setBounds(93, 202, 130, 20); // x + 10, y + 15
 			panel_formulario_agregar.add(matricula_tag);
 
 			JTextField matricula_txtfield = new JTextField();
 			matricula_txtfield.setBackground(new Color(255, 255, 255));
-			matricula_txtfield.setBounds(50, 195, 300, 30); // y + 15
-			matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			matricula_txtfield.setBounds(93, 225, 300, 40); // y + 15
+			matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(matricula_txtfield);
 
 			JLabel año_tag = new JLabel("Año");
 			año_tag.setBackground(new Color(0, 0, 0));
-			año_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
-			año_tag.setBounds(50, 230, 100, 20); // y + 60
+			año_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+			año_tag.setBounds(93, 267, 100, 20); // y + 60
 			panel_formulario_agregar.add(año_tag);
 
 			JTextField año_txtfield = new JTextField();
 			año_txtfield.setBackground(new Color(255, 255, 255));
-			año_txtfield.setBounds(50, 250, 130, 30); // y + 60
+			año_txtfield.setBounds(93, 290, 130, 40); // y + 60
 			año_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(año_txtfield);
 
 			JLabel color_tag = new JLabel("Color");
 			color_tag.setBackground(new Color(0, 0, 0));
-			color_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
-			color_tag.setBounds(200, 230, 100, 20); // x + 10, y + 60
+			color_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+			color_tag.setBounds(248, 267, 100, 20); // x + 10, y + 60
 			panel_formulario_agregar.add(color_tag);
 
 			String[] colores = { "Rojo", "Negro" };
 			JComboBox color_txtfield = new JComboBox(colores);
 			color_txtfield.setBackground(new Color(255, 255, 255));
-			color_txtfield.setBounds(200, 250, 150, 30); // y + 60
-			color_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+			color_txtfield.setBounds(243, 290, 150, 40); // y + 60
+			color_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
 			panel_formulario_agregar.add(color_txtfield);
 
 			JLabel trans_tag = new JLabel("Transmisión");
 			trans_tag.setBackground(new Color(0, 0, 0));
-			trans_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente reducido a 12
-			trans_tag.setBounds(50, 280, 150, 20); // x + 10, y - 10
+			trans_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente reducido a 12
+			trans_tag.setBounds(94, 334, 150, 20); // x + 10, y - 10
 			panel_formulario_agregar.add(trans_tag);
 
 			String[] transmision = { "Automática", "Manual" };
 			JComboBox trans_txtfield = new JComboBox(transmision);
 			trans_txtfield.setBackground(new Color(255, 255, 255));
-			trans_txtfield.setBounds(50, 301, 300, 30); // Ajuste en las coordenadas para alinear con la etiqueta
-			trans_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+			trans_txtfield.setBounds(93, 357, 300, 40); // Ajuste en las coordenadas para alinear con la etiqueta
+			trans_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 			panel_formulario_agregar.add(trans_txtfield);
 
-			JLabel costo_tag = new JLabel("Costo (Por día)");
+			JLabel costo_tag = new JLabel("Costo por día");
 			costo_tag.setBackground(new Color(0, 0, 0));
-			costo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente reducido a 12
-			costo_tag.setBounds(50, 335, 200, 20); // x + 10, y - 10
+			costo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente reducido a 12
+			costo_tag.setBounds(93, 393, 200, 30); // x + 10, y - 10
 			panel_formulario_agregar.add(costo_tag);
 
 			JTextField costo_txtfield = new JTextField();
 			costo_txtfield.setBackground(new Color(255, 255, 255));
-			costo_txtfield.setBounds(50, 356, 300, 30); // Ajuste en las coordenadas para alinear con la etiqueta
-			costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+			costo_txtfield.setBounds(93, 423, 300, 40); // Ajuste en las coordenadas para alinear con la etiqueta
+			costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 			panel_formulario_agregar.add(costo_txtfield);
 
-			JButton boton_agregar = new JButton("Agregar");
-			boton_agregar.setBounds(130, 400, 150, 40);
+			JButton boton_agregar = new JButton("");
+			boton_agregar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			boton_agregar.setBounds(155, 468, 156, 47);
 			boton_agregar.setContentAreaFilled(false);
 			boton_agregar.setBorderPainted(false);
 			try {
@@ -818,17 +835,17 @@ public class Window {
 			guardar.setBounds(259, 457, 140, 50);
 			panel_6.add(guardar);
 
-			JButton atras = new JButton("");
-			atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
-			atras.addActionListener(new ActionListener() {
+			JButton atras1 = new JButton("");
+			atras1.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
+			atras1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("atras");
 				}
 			});
-			atras.setContentAreaFilled(false);
-			atras.setBorderPainted(false);
-			atras.setBounds(0, 3, 72, 65);
-			panel_6.add(atras);
+			atras1.setContentAreaFilled(false);
+			atras1.setBorderPainted(false);
+			atras1.setBounds(0, 3, 72, 65);
+			panel_6.add(atras1);
 
 			JPanel panel_3_1 = new JPanel();
 			panel_3_1.setBackground(new Color(1, 6, 26));
@@ -836,7 +853,7 @@ public class Window {
 			panel_6.add(panel_3_1);
 			panel_3_1.setLayout(null);
 
-			JLabel lblMatricula = new JLabel("Matricula");
+			JLabel lblMatricula = new JLabel("Matrícula");
 			lblMatricula.setForeground(new Color(255, 255, 255));
 			lblMatricula.setBounds(0, 6, 118, 30);
 			lblMatricula.setHorizontalAlignment(SwingConstants.CENTER);
@@ -960,7 +977,529 @@ public class Window {
 		frame.setTitle("Vehiculos");
 
 	}
+	public void consultarVehiculos(JFrame frame)
+	{
+		frame.setTitle("Consultar vehículos");
+		JPanel panelConsultaVehi=new JPanel();
+		panelConsultaVehi.setBackground(new Color(0, 0, 0));
+		panelConsultaVehi.setBounds(0, 0, 1184, 638);
+		panelConsultaVehi.setLayout(null);
 
+		frame.getContentPane().add(panelConsultaVehi);
+
+		JPanel panel_1 = new JPanel() {
+			@Override
+			public void paintComponent(Graphics create) {
+				super.paintComponent(create);
+				Graphics2D g2d = (Graphics2D) create;
+			}
+		};
+
+		panel_1.setBackground(new Color(163, 184, 210));
+		panel_1.setBounds(29, 27, 1125, 580);
+		panelConsultaVehi.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel consultaVehiculo = new JLabel("Consultar vehículos");
+		consultaVehiculo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 40));
+		consultaVehiculo.setForeground(new Color(255, 255, 255));
+		consultaVehiculo.setBounds(368, 1, 395, 69);
+		panel_1.add(consultaVehiculo);
+
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setOpaque(true);
+		lblNewLabel_3.setBackground(new Color(1, 6, 27));
+		lblNewLabel_3.setBounds(10, 10, 1105, 50);
+		panel_1.add(lblNewLabel_3);
+
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setOpaque(true);
+		lblNewLabel_2.setBackground(new Color(255, 255, 255));
+		lblNewLabel_2.setBounds(0, 0, 1125, 70);
+		panel_1.add(lblNewLabel_2);
+
+		String tableTitle[] = { "Matricula", "Marca", "Modelo", "Año", "Transmisión", "Costo por día"};
+		String tableData[][] = {
+			    { "ABC123", "Ferrari", "Modelo30X", "2020", "Automática", "50.0" },
+			    { "DEF456", "Maserati", "Modelo43A", "2019", "Manual", "60.0" },
+			    { "GHI789", "Porsche", "Modelo21A", "2021", "Automática", "55.0" },
+			    { "JKL012", "Lamborghini", "Modelo89F", "2018", "Manual", "65.0" },
+			    { "MNO345", "Bugatti", "Modelo30X", "2022", "Automática", "70.0" },
+			    { "PQR678", "Bentley", "Modelo43A", "2017", "Manual", "75.0" },
+			    { "STU901", "BMW", "Modelo21A", "2023", "Automática", "55.0" },
+			    { "VWX234", "McLaren", "Modelo89F", "2016", "Manual", "80.0" },
+			    { "YZA567", "Ferrari", "Modelo30X", "2020", "Automática", "75.0" },
+			    { "BCD890", "Maserati", "Modelo43A", "2019", "Manual", "65.0" },
+			    { "EFG123", "Porsche", "Modelo21A", "2021", "Automática", "60.0" },
+			    { "HIJ456", "Lamborghini", "Modelo89F", "2018", "Manual", "70.0" },
+			    { "KLM789", "Bugatti", "Modelo30X", "2022", "Automática", "80.0" },
+			    { "NOP012", "Bentley", "Modelo43A", "2017", "Manual", "85.0" },
+			    { "OPQ345", "BMW", "Modelo21A", "2023", "Automática", "70.0" },
+			    { "RST678", "Ferrari", "Modelo30X", "2020", "Automática", "80.0" },
+			    { "UVW901", "Maserati", "Modelo43A", "2019", "Manual", "90.0" },
+			    { "XYZ234", "Porsche", "Modelo21A", "2021", "Automática", "85.0" },
+			    { "ABC567", "Lamborghini", "Modelo89F", "2018", "Manual", "95.0" },
+			    { "DEF890", "Bugatti", "Modelo30X", "2022", "Automática", "100.0" },
+			    { "GHI123", "Bentley", "Modelo43A", "2017", "Manual", "110.0" },
+			    { "JKL456", "BMW", "Modelo21A", "2023", "Automática", "95.0" },
+			    { "MNO789", "McLaren", "Modelo89F", "2016", "Manual", "120.0" },
+			    { "PQR012", "Ferrari", "Modelo30X", "2020", "Automática", "105.0" },
+			    { "STU345", "Maserati", "Modelo43A", "2019", "Manual", "115.0" },
+			    { "VWX678", "Porsche", "Modelo21A", "2021", "Automática", "110.0" },
+			    { "YZA901", "Lamborghini", "Modelo89F", "2018", "Manual", "125.0" },
+			    { "BCD234", "Bugatti", "Modelo30X", "2022", "Automática", "130.0" },
+			    { "EFG567", "Bentley", "Modelo43A", "2017", "Manual", "140.0" },
+			    { "HIJ890", "BMW", "Modelo21A", "2023", "Automática", "125.0" }
+			};
+
+
+
+		
+
+		JTable productoTable = new JTable(tableData, tableTitle);
+		productoTable.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
+
+		productoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					int selectedRow = productoTable.getSelectedRow();
+					if (selectedRow != -1) {
+						System.out.println("Fila seleccionada: " + selectedRow);
+
+					}
+				}
+			}
+		});
+
+		JScrollPane tablaVehiculos = new JScrollPane(productoTable);
+		tablaVehiculos.setBounds(10, 97, 1105, 387);
+		panel_1.add(tablaVehiculos);
+
+		JButton select = new JButton();
+		select.setIcon(new ImageIcon(getClass().getResource("/media/seleccionar.png")));
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("selec");
+				int selectedRow = productoTable.getSelectedRow();
+				if (selectedRow != -1) {
+					String[] rowData = new String[tableTitle.length];
+					for (int i = 0; i < tableTitle.length; i++) {
+						rowData[i] = productoTable.getValueAt(selectedRow, i).toString();
+					}
+					System.out.println("Datos de la fila seleccionada:");
+					for (String data : rowData) {
+						System.out.print(data + " ");
+					}
+					System.out.println();
+				}
+			}
+		});
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
+		select.setBounds(657, 507, 140, 50);
+		panel_1.add(select);
+
+		JButton regresar = new JButton();
+		regresar.setIcon(new ImageIcon(getClass().getResource("/media/regresar.png")));
+		regresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("vaciar");
+			}
+		});
+		regresar.setContentAreaFilled(false);
+		regresar.setBorderPainted(false);
+		regresar.setBounds(324, 507, 140, 50);
+		panel_1.add(regresar);
+	}
+
+	private void consultaIndVehiculo(JFrame frame) {
+		frame.setTitle("Consulta individual de vehículo");
+		JPanel consultaIndVehiPanel=new JPanel();
+		consultaIndVehiPanel.setBackground(new Color(0, 0, 0));
+
+		consultaIndVehiPanel.setBounds(0, 0, 1184, 638);
+		consultaIndVehiPanel.setLayout(null);
+
+		String carro = "Bugatti";
+		JLabel label = new JLabel(carro);
+		label.setFont(new Font("", Font.BOLD, 20));
+		frame.getContentPane().add(consultaIndVehiPanel);
+
+		JPanel panel_1 = new JPanel() {
+			@Override
+			public void paintComponent(Graphics create) {
+				super.paintComponent(create);
+				Graphics2D g2d = (Graphics2D) create;
+
+				g2d.setColor(new Color(163, 184, 210));
+				g2d.fillRect(820, 0, 340, 580);
+
+				g2d.setColor(new Color(1, 6, 27));
+				g2d.fillOval(620, 100, 400, 400);
+
+				g2d.setColor(new Color(1, 6, 27));
+				g2d.fillRect(70, 51, 430, 479);
+
+				try {
+					BufferedImage image = ImageIO.read(getClass().getResource("/media/car.png"));
+					g2d.drawImage(image, 570, 180, 500, 240, null);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		};
+
+		panel_1.setBackground(new Color(43, 59, 89));
+		panel_1.setBounds(29, 27, 1125, 580);
+		consultaIndVehiPanel.add(panel_1);
+		panel_1.setLayout(null);
+
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(163, 184, 210));
+		panel_6.setBounds(34, 35, 479, 514);
+		panel_1.add(panel_6);
+		panel_6.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("Consulta individual");
+		lblNewLabel.setBackground(new Color(0, 0, 0));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
+		lblNewLabel.setBounds(59, 12, 370, 52);
+		panel_6.add(lblNewLabel);
+
+		JButton eliminar = new JButton();
+		eliminar.setIcon(new ImageIcon(getClass().getResource("/media/elim.png")));
+		eliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Eliminar cambios");
+			}
+		});
+		eliminar.setContentAreaFilled(false);
+		eliminar.setBorderPainted(false);
+		eliminar.setBounds(68, 457, 140, 50);
+		panel_6.add(eliminar);
+
+		JButton guardar = new JButton();
+		guardar.setIcon(new ImageIcon(getClass().getResource("/media/editar.png")));
+		guardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Eliminar cambios");
+			}
+		});
+		guardar.setContentAreaFilled(false);
+		guardar.setBorderPainted(false);
+		guardar.setBounds(259, 457, 140, 50);
+		panel_6.add(guardar);
+
+		JButton atras = new JButton("");
+		atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
+		atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("atras");
+			}
+		});
+		atras.setContentAreaFilled(false);
+		atras.setBorderPainted(false);
+		atras.setBounds(0, 10, 54, 54);
+		panel_6.add(atras);
+
+		JButton rentar = new JButton("", null);
+		rentar.setContentAreaFilled(false);
+		rentar.setBorderPainted(false);
+		rentar.setBounds(218, 443, 155, 60);
+		panel_6.add(rentar);
+
+		JPanel panel_3_1 = new JPanel();
+		panel_3_1.setBackground(new Color(1, 6, 26));
+		panel_3_1.setBounds(10, 75, 460, 371);
+		panel_6.add(panel_3_1);
+		panel_3_1.setLayout(null);
+
+		JLabel lblMatricula = new JLabel("Matrícula");
+		lblMatricula.setForeground(new Color(255, 255, 255));
+		lblMatricula.setBounds(0, 18, 118, 30);
+		lblMatricula.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMatricula.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblMatricula.setBackground(Color.BLACK);
+		panel_3_1.add(lblMatricula);
+
+		JLabel lblModelo_1 = new JLabel("Modelo");
+		lblModelo_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModelo_1.setForeground(Color.WHITE);
+		lblModelo_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		lblModelo_1.setBackground(Color.BLACK);
+		lblModelo_1.setBounds(0, 120, 97, 30);
+		panel_3_1.add(lblModelo_1);
+
+		JLabel ibYear = new JLabel("Año");
+		ibYear.setHorizontalAlignment(SwingConstants.CENTER);
+		ibYear.setForeground(Color.WHITE);
+		ibYear.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibYear.setBackground(Color.BLACK);
+		ibYear.setBounds(0, 169, 52, 30);
+		panel_3_1.add(ibYear);
+
+		JLabel ibTransmision = new JLabel("Transmisión");
+		ibTransmision.setHorizontalAlignment(SwingConstants.CENTER);
+		ibTransmision.setForeground(Color.WHITE);
+		ibTransmision.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibTransmision.setBackground(Color.BLACK);
+		ibTransmision.setBounds(0, 224, 146, 30);
+		panel_3_1.add(ibTransmision);
+
+		JLabel ibColor = new JLabel("Color");
+		ibColor.setHorizontalAlignment(SwingConstants.CENTER);
+		ibColor.setForeground(Color.WHITE);
+		ibColor.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibColor.setBackground(Color.BLACK);
+		ibColor.setBounds(0, 275, 72, 30);
+		panel_3_1.add(ibColor);
+
+		JLabel ibMarca = new JLabel("Marca");
+		ibMarca.setHorizontalAlignment(SwingConstants.CENTER);
+		ibMarca.setForeground(Color.WHITE);
+		ibMarca.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibMarca.setBackground(Color.BLACK);
+		ibMarca.setBounds(0, 69, 79, 30);
+		panel_3_1.add(ibMarca);
+
+		JLabel ibPrecioDia = new JLabel("Precio por día");
+		ibPrecioDia.setHorizontalAlignment(SwingConstants.CENTER);
+		ibPrecioDia.setForeground(Color.WHITE);
+		ibPrecioDia.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibPrecioDia.setBackground(Color.BLACK);
+		ibPrecioDia.setBounds(0, 325, 167, 30);
+		panel_3_1.add(ibPrecioDia);
+
+		JLabel matriResult = new JLabel("82398");
+		matriResult.setOpaque(true);
+		matriResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		matriResult.setBackground(Color.WHITE);
+		matriResult.setBounds(175, 13, 275, 40);
+		panel_3_1.add(matriResult);
+
+		JLabel marcaResult = new JLabel("82398");
+		marcaResult.setOpaque(true);
+		marcaResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		marcaResult.setBackground(Color.WHITE);
+		marcaResult.setBounds(175, 64, 275, 40);
+		panel_3_1.add(marcaResult);
+
+		JLabel modeloResult = new JLabel("82398");
+		modeloResult.setOpaque(true);
+		modeloResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		modeloResult.setBackground(Color.WHITE);
+		modeloResult.setBounds(175, 115, 275, 40);
+		panel_3_1.add(modeloResult);
+
+		JLabel yearResult = new JLabel("82398");
+		yearResult.setOpaque(true);
+		yearResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		yearResult.setBackground(Color.WHITE);
+		yearResult.setBounds(175, 164, 275, 40);
+		panel_3_1.add(yearResult);
+
+		JLabel transResult = new JLabel("82398");
+		transResult.setOpaque(true);
+		transResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		transResult.setBackground(Color.WHITE);
+		transResult.setBounds(175, 219, 275, 40);
+		panel_3_1.add(transResult);
+
+		JLabel colorResult = new JLabel("82398");
+		colorResult.setOpaque(true);
+		colorResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		colorResult.setBackground(Color.WHITE);
+		colorResult.setBounds(175, 270, 275, 40);
+		panel_3_1.add(colorResult);
+
+		JLabel precioDiaResult = new JLabel("82398");
+		precioDiaResult.setOpaque(true);
+		precioDiaResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		precioDiaResult.setBackground(Color.WHITE);
+		precioDiaResult.setBounds(175, 320, 275, 40);
+		panel_3_1.add(precioDiaResult);
+
+	}
+	public void editarVehiculo(JFrame frame)
+	{
+		panelVehiculos.setBounds(0, 0, 1184, 638);
+		panelVehiculos.setBackground(Color.black);
+		panelVehiculos.setLayout(null);
+
+		
+		System.out.println("Añadir");
+		panelVehiculos.removeAll();
+		frame.getContentPane().add(panelVehiculos);
+		JPanel panel_agregar_vehiculo = new JPanel() {
+			@Override
+			public void paintComponent(Graphics create) {
+				super.paintComponent(create);
+				Graphics2D g2d = (Graphics2D) create;
+				
+				g2d.setColor(new Color(163, 184, 210));
+				g2d.fillRect(850, 0, 310, 580);
+
+				g2d.setColor(new Color(1, 6, 27));
+				g2d.fillOval(690, 118, 320, 320);
+
+				g2d.setColor(new Color(1, 6, 27));
+				g2d.fillRect(21, 21, 506, 539);
+
+				try {
+//						Imágen carro
+					BufferedImage image = ImageIO.read(getClass().getResource("/media/auto-misterioso.png"));
+					g2d.drawImage(image, 550, 150, 580, 300, null);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		panel_agregar_vehiculo.setBackground(new Color(43, 59, 89));
+		panel_agregar_vehiculo.setBounds(29, 27, 1125, 580);
+		panel_agregar_vehiculo.setLayout(null);
+		panelVehiculos.add(panel_agregar_vehiculo);
+
+		
+		
+		JPanel panel_formulario_agregar = new JPanel();
+		panel_formulario_agregar.setBackground(new Color(163, 184, 210));
+		panel_formulario_agregar.setBounds(34, 35, 479, 514);
+		panel_agregar_vehiculo.add(panel_formulario_agregar);
+		panel_formulario_agregar.setLayout(null);
+		
+		JButton atras = new JButton("");
+		atras.setIcon(new ImageIcon(getClass().getResource("/media/volver.png")));
+		atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("atras");
+			}
+		});
+		atras.setContentAreaFilled(false);
+		atras.setBorderPainted(false);
+		atras.setBounds(10, 10, 54, 54);
+		panel_formulario_agregar.add(atras);
+
+		JLabel agregar_tag = new JLabel("Editar vehículo");
+		agregar_tag.setBackground(new Color(0, 0, 0));
+		agregar_tag.setHorizontalAlignment(SwingConstants.CENTER);
+		agregar_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 38));
+		agregar_tag.setBounds(52, 8, 378, 52);
+		panel_formulario_agregar.add(agregar_tag);
+
+		JLabel marca_tag = new JLabel("Marca");
+		marca_tag.setBackground(new Color(0, 0, 0));
+		marca_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+		marca_tag.setBounds(93, 70, 84, 20); // x + 10, y + 15
+		panel_formulario_agregar.add(marca_tag);
+
+		JTextField marca_txtfield = new JTextField();
+		marca_txtfield.setBackground(new Color(255, 255, 255));
+		marca_txtfield.setBounds(93, 95, 300, 40); // y + 15
+		marca_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+		panel_formulario_agregar.add(marca_txtfield);
+		marca_txtfield.setColumns(10);
+		
+		JLabel modelo_tag = new JLabel("Modelo");
+		modelo_tag.setBackground(new Color(0, 0, 0));
+		modelo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+		modelo_tag.setBounds(93, 136, 100, 20); // x + 10, y + 15
+		panel_formulario_agregar.add(modelo_tag);
+
+		JTextField modelo_txtfield = new JTextField();
+		modelo_txtfield.setBackground(new Color(255, 255, 255));
+		modelo_txtfield.setBounds(93, 160, 300, 40); // y + 15
+		modelo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
+		panel_formulario_agregar.add(modelo_txtfield);
+
+		JLabel matricula_tag = new JLabel("Matrícula");
+		matricula_tag.setBackground(new Color(0, 0, 0));
+		matricula_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+		matricula_tag.setBounds(93, 202, 130, 20); // x + 10, y + 15
+		panel_formulario_agregar.add(matricula_tag);
+
+		JTextField matricula_txtfield = new JTextField();
+		matricula_txtfield.setBackground(new Color(255, 255, 255));
+		matricula_txtfield.setBounds(93, 225, 300, 40); // y + 15
+		matricula_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
+		panel_formulario_agregar.add(matricula_txtfield);
+
+		JLabel año_tag = new JLabel("Año");
+		año_tag.setBackground(new Color(0, 0, 0));
+		año_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+		año_tag.setBounds(93, 267, 100, 20); // y + 60
+		panel_formulario_agregar.add(año_tag);
+
+		JTextField año_txtfield = new JTextField();
+		año_txtfield.setBackground(new Color(255, 255, 255));
+		año_txtfield.setBounds(93, 290, 130, 40); // y + 60
+		año_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12)); // Tamaño de fuente 12
+		panel_formulario_agregar.add(año_txtfield);
+
+		JLabel color_tag = new JLabel("Color");
+		color_tag.setBackground(new Color(0, 0, 0));
+		color_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente 12
+		color_tag.setBounds(248, 267, 100, 20); // x + 10, y + 60
+		panel_formulario_agregar.add(color_tag);
+
+		String[] colores = { "Rojo", "Negro" };
+		JComboBox color_txtfield = new JComboBox(colores);
+		color_txtfield.setBackground(new Color(255, 255, 255));
+		color_txtfield.setBounds(243, 290, 150, 40); // y + 60
+		color_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15)); // Tamaño de fuente 12
+		panel_formulario_agregar.add(color_txtfield);
+
+		JLabel trans_tag = new JLabel("Transmisión");
+		trans_tag.setBackground(new Color(0, 0, 0));
+		trans_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente reducido a 12
+		trans_tag.setBounds(94, 334, 150, 20); // x + 10, y - 10
+		panel_formulario_agregar.add(trans_tag);
+
+		String[] transmision = { "Automática", "Manual" };
+		JComboBox trans_txtfield = new JComboBox(transmision);
+		trans_txtfield.setBackground(new Color(255, 255, 255));
+		trans_txtfield.setBounds(93, 357, 300, 40); // Ajuste en las coordenadas para alinear con la etiqueta
+		trans_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+		panel_formulario_agregar.add(trans_txtfield);
+
+		JLabel costo_tag = new JLabel("Costo por día");
+		costo_tag.setBackground(new Color(0, 0, 0));
+		costo_tag.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23)); // Tamaño de fuente reducido a 12
+		costo_tag.setBounds(93, 393, 200, 30); // x + 10, y - 10
+		panel_formulario_agregar.add(costo_tag);
+
+		JTextField costo_txtfield = new JTextField();
+		costo_txtfield.setBackground(new Color(255, 255, 255));
+		costo_txtfield.setBounds(93, 423, 300, 40); // Ajuste en las coordenadas para alinear con la etiqueta
+		costo_txtfield.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+		panel_formulario_agregar.add(costo_txtfield);
+
+		JButton boton_agregar = new JButton("");
+		boton_agregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		boton_agregar.setBounds(155, 468, 156, 47);
+		boton_agregar.setContentAreaFilled(false);
+		boton_agregar.setBorderPainted(false);
+		try {
+			boton_agregar.setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/media/botonAgregar.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		panel_formulario_agregar.add(boton_agregar);
+
+		frame.repaint();
+		frame.revalidate();
+	}
+		
+	//Rentas---------------------------------------------------------------------------------------------
 	public void carros(JFrame frame) {
 		frame.setTitle("Carros");
 
@@ -1219,6 +1758,9 @@ public class Window {
 
 	}
 
+	
+
+	
 	private void rentas(JFrame frame) {
 		frame.setTitle("Rentas");
 
@@ -1329,7 +1871,7 @@ public class Window {
 		});
 		atras.setContentAreaFilled(false);
 		atras.setBorderPainted(false);
-		atras.setBounds(0, 3, 72, 65);
+		atras.setBounds(10, 10, 54, 54);
 		panel_6.add(atras);
 
 		JLabel iconPersona = new JLabel("");
@@ -1390,7 +1932,7 @@ public class Window {
 
 		JLabel costoResp = new JLabel("82398");
 		costoResp.setOpaque(true);
-		costoResp.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp.setBackground(new Color(255, 255, 255));
 		costoResp.setBounds(96, 358, 297, 40);
 		panel_6.add(costoResp);
@@ -1417,7 +1959,10 @@ public class Window {
 		nomCliente_1_1.setBounds(10, 36, 85, 30);
 		panel_2.add(nomCliente_1_1);
 
-		JComboBox comboBox = new JComboBox();
+		String[] modelos = {"Modelo30X", "Modelo43A", "Modelo21A", "Modelo89F"};
+
+		JComboBox comboBox = new JComboBox(modelos);
+		comboBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
 		comboBox.setBackground(new Color(255, 255, 255));
 		comboBox.setBounds(169, 9, 300, 25);
 		panel_2.add(comboBox);
@@ -1426,7 +1971,7 @@ public class Window {
 		costoResp_1.setBounds(169, 39, 300, 25);
 		panel_2.add(costoResp_1);
 		costoResp_1.setOpaque(true);
-		costoResp_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1.setBackground(Color.WHITE);
 
 		JPanel panel_2_1 = new JPanel();
@@ -1453,7 +1998,7 @@ public class Window {
 
 		JLabel costoResp_1_1 = new JLabel("82398");
 		costoResp_1_1.setOpaque(true);
-		costoResp_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1_1.setBackground(Color.WHITE);
 		costoResp_1_1.setBounds(169, 39, 300, 25);
 		panel_2_1.add(costoResp_1_1);
@@ -1469,14 +2014,14 @@ public class Window {
 
 		JLabel costoResp_1_1_1 = new JLabel("82398");
 		costoResp_1_1_1.setOpaque(true);
-		costoResp_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1_1_1.setBackground(Color.WHITE);
 		costoResp_1_1_1.setBounds(169, 69, 300, 25);
 		panel_2_1.add(costoResp_1_1_1);
 
 		JLabel costoResp_1_1_2 = new JLabel("82398");
 		costoResp_1_1_2.setOpaque(true);
-		costoResp_1_1_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1_1_2.setBackground(Color.WHITE);
 		costoResp_1_1_2.setBounds(169, 9, 300, 25);
 		panel_2_1.add(costoResp_1_1_2);
@@ -1522,7 +2067,7 @@ public class Window {
 	}
 
 	private void editar(JFrame frame) {
-		frame.setTitle("Editar");
+		frame.setTitle("Editar renta");
 		editarPanel.setBackground(new Color(0, 0, 0));
 
 		editarPanel.setBounds(0, 0, 1184, 638);
@@ -1630,7 +2175,7 @@ public class Window {
 		});
 		atras.setContentAreaFilled(false);
 		atras.setBorderPainted(false);
-		atras.setBounds(0, 3, 72, 65);
+		atras.setBounds(10, 10, 54, 54);
 		panel_6.add(atras);
 
 		JLabel iconPersona = new JLabel("");
@@ -1691,10 +2236,24 @@ public class Window {
 
 		JLabel costoResp = new JLabel("82398");
 		costoResp.setOpaque(true);
-		costoResp.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp.setBackground(new Color(255, 255, 255));
 		costoResp.setBounds(96, 358, 297, 40);
 		panel_6.add(costoResp);
+		
+		JLabel lblNoRenta = new JLabel("No.");
+		lblNoRenta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNoRenta.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+		lblNoRenta.setBackground(Color.BLACK);
+		lblNoRenta.setBounds(408, 18, 36, 38);
+		panel_6.add(lblNoRenta);
+		
+		JLabel lblNoResult = new JLabel("1");
+		lblNoResult.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNoResult.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+		lblNoResult.setBackground(Color.BLACK);
+		lblNoResult.setBounds(433, 18, 36, 38);
+		panel_6.add(lblNoResult);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(1, 6, 21));
@@ -1718,7 +2277,9 @@ public class Window {
 		nomCliente_1_1.setBounds(10, 36, 85, 30);
 		panel_2.add(nomCliente_1_1);
 
-		JComboBox comboBox = new JComboBox();
+		String[] modelos = {"Modelo30X", "Modelo43A", "Modelo21A", "Modelo89F"};
+		JComboBox comboBox = new JComboBox(modelos);
+		comboBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
 		comboBox.setBackground(new Color(255, 255, 255));
 		comboBox.setBounds(169, 9, 300, 25);
 		panel_2.add(comboBox);
@@ -1727,7 +2288,7 @@ public class Window {
 		costoResp_1.setBounds(169, 39, 300, 25);
 		panel_2.add(costoResp_1);
 		costoResp_1.setOpaque(true);
-		costoResp_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1.setBackground(Color.WHITE);
 
 		JPanel panel_2_1 = new JPanel();
@@ -1754,7 +2315,7 @@ public class Window {
 
 		JLabel costoResp_1_1 = new JLabel("82398");
 		costoResp_1_1.setOpaque(true);
-		costoResp_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1_1.setBackground(Color.WHITE);
 		costoResp_1_1.setBounds(169, 39, 300, 25);
 		panel_2_1.add(costoResp_1_1);
@@ -1770,14 +2331,14 @@ public class Window {
 
 		JLabel costoResp_1_1_1 = new JLabel("82398");
 		costoResp_1_1_1.setOpaque(true);
-		costoResp_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1_1_1.setBackground(Color.WHITE);
 		costoResp_1_1_1.setBounds(169, 69, 300, 25);
 		panel_2_1.add(costoResp_1_1_1);
 
 		JLabel costoResp_1_1_2 = new JLabel("82398");
 		costoResp_1_1_2.setOpaque(true);
-		costoResp_1_1_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoResp_1_1_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
 		costoResp_1_1_2.setBackground(Color.WHITE);
 		costoResp_1_1_2.setBounds(169, 9, 300, 25);
 		panel_2_1.add(costoResp_1_1_2);
@@ -1823,7 +2384,7 @@ public class Window {
 	}
 
 	private void consultar(JFrame frame) {
-		frame.setTitle("Consultar");
+		frame.setTitle("Consultar rentas");
 		panelConsulta.setBackground(new Color(0, 0, 0));
 		panelConsulta.setBounds(0, 0, 1184, 638);
 		panelConsulta.setLayout(null);
@@ -1864,66 +2425,38 @@ public class Window {
 		String tableTitle[] = { "No. de renta", "Cliente", "Fecha inicial", "Fecha final", "Costo total", "Placas",
 				"Marca", "Modelo", "Color", "Costo por día", "Año", "Transmisión" };
 		String tableData[][] = {
-				{ "1", "Ehileen", "2024/04/01", "2024/04/10", "1500.0", "ABC123", "Ferrari", "Modelo1", "Rojo", "50.0",
-						"2020", "Automática" },
-				{ "2", "Henry", "2024/04/05", "2024/04/15", "2000.0", "XYZ789", "Maserati", "Modelo2", "Negro", "60.0",
-						"2019", "Manual" },
-				{ "3", "Kevin", "2024/04/10", "2024/04/20", "1800.0", "DEF456", "Porsche", "Modelo3", "Rojo", "55.0",
-						"2021", "Automática" },
-				{ "4", "Omar", "2024/04/15", "2024/04/25", "2200.0", "GHI789", "Lamborghini", "Modelo4", "Negro",
-						"65.0", "2018", "Manual" },
-				{ "5", "Roberto", "2024/04/20", "2024/04/30", "1700.0", "JKL012", "Bugatti", "Modelo5", "Rojo", "70.0",
-						"2022", "Automática" },
-				{ "6", "Melissa", "2024/04/25", "2024/05/05", "2500.0", "MNO345", "Bentley", "Modelo6", "Negro", "75.0",
-						"2017", "Manual" },
-				{ "7", "Heriberto", "2024/04/30", "2024/05/10", "1900.0", "PQR678", "BMW", "Modelo7", "Rojo", "55.0",
-						"2023", "Automática" },
-				{ "8", "Manuel", "2024/05/05", "2024/05/15", "2300.0", "STU901", "MacLaren", "Modelo8", "Negro", "80.0",
-						"2016", "Manual" },
-				{ "9", "Karim", "2024/05/10", "2024/05/20", "2100.0", "VWX234", "Ferrari", "Modelo9", "Rojo", "75.0",
-						"2020", "Automática" },
-				{ "10", "Ariel", "2024/05/15", "2024/05/25", "2400.0", "YZA567", "Maserati", "Modelo10", "Negro",
-						"65.0", "2019", "Manual" },
-				{ "11", "Hannia", "2024/05/20", "2024/05/30", "1800.0", "BCD890", "Porsche", "Modelo11", "Rojo", "60.0",
-						"2021", "Automática" },
-				{ "12", "Oscar", "2024/05/25", "2024/06/05", "2600.0", "EFG123", "Lamborghini", "Modelo12", "Negro",
-						"70.0", "2018", "Manual" },
-				{ "13", "Armando", "2024/05/30", "2024/06/10", "2000.0", "HIJ456", "Bugatti", "Modelo13", "Rojo",
-						"80.0", "2022", "Automática" },
-				{ "14", "Jassiel", "2024/06/04", "2024/06/14", "2900.0", "KLM789", "Bentley", "Modelo14", "Negro",
-						"85.0", "2017", "Manual" },
-				{ "15", "Gamaliel", "2024/06/09", "2024/06/19", "2200.0", "NOP012", "BMW", "Modelo15", "Rojo", "70.0",
-						"2023", "Automática" },
-				{ "16", "Ernesto", "2024/06/14", "2024/06/24", "2400.0", "OPQ345", "Ferrari", "Modelo16", "Rojo",
-						"80.0", "2020", "Automática" },
-				{ "17", "Zanhia", "2024/06/19", "2024/06/29", "2600.0", "RST678", "Maserati", "Modelo17", "Negro",
-						"90.0", "2019", "Manual" },
-				{ "18", "Michelle", "2024/06/24", "2024/07/04", "1900.0", "UVW901", "Porsche", "Modelo18", "Rojo",
-						"85.0", "2021", "Automática" },
-				{ "19", "Soon", "2024/06/29", "2024/07/09", "2800.0", "XYZ234", "Lamborghini", "Modelo19", "Negro",
-						"95.0", "2018", "Manual" },
-				{ "20", "Irais", "2024/07/04", "2024/07/14", "2200.0", "ABC567", "Bugatti", "Modelo20", "Rojo", "100.0",
-						"2022", "Automática" },
-				{ "21", "Elvia", "2024/07/09", "2024/07/19", "3000.0", "DEF890", "Bentley", "Modelo21", "Negro",
-						"110.0", "2017", "Manual" },
-				{ "22", "Juan", "2024/07/14", "2024/07/24", "2500.0", "GHI123", "BMW", "Modelo22", "Rojo", "95.0",
-						"2023", "Automática" },
-				{ "23", "Cristopher", "2024/07/19", "2024/07/29", "3200.0", "JKL456", "MacLaren", "Modelo23", "Negro",
-						"120.0", "2016", "Manual" },
-				{ "24", "Iram", "2024/07/24", "2024/08/03", "2700.0", "MNO789", "Ferrari", "Modelo24", "Rojo", "105.0",
-						"2020", "Automática" },
-				{ "25", "Christian", "2024/07/29", "2024/08/08", "3400.0", "PQR012", "Maserati", "Modelo25", "Negro",
-						"115.0", "2019", "Manual" },
-				{ "26", "Daniel", "2024/08/03", "2024/08/13", "2900.0", "STU345", "Porsche", "Modelo26", "Rojo",
-						"110.0", "2021", "Automática" },
-				{ "27", "Adan", "2024/08/08", "2024/08/18", "3800.0", "VWX678", "Lamborghini", "Modelo27", "Negro",
-						"125.0", "2018", "Manual" },
-				{ "28", "Carlos", "2024/08/13", "2024/08/23", "3100.0", "YZA901", "Bugatti", "Modelo28", "Rojo",
-						"130.0", "2022", "Automática" },
-				{ "29", "Joshua", "2024/08/18", "2024/08/28", "4000.0", "BCD234", "Bentley", "Modelo29", "Negro",
-						"140.0", "2017", "Manual" },
-				{ "30", "Alex", "2024/08/23", "2024/09/02", "3300.0", "EFG567", "BMW", "Modelo30", "Rojo", "125.0",
-						"2023", "Automática" } };
+			    { "1", "Ehileen", "2024/04/01", "2024/04/10", "1500.0", "ABC123", "Ferrari", "Modelo30X", "Rojo", "50.0", "2020", "Automática" },
+			    { "2", "Henry", "2024/04/05", "2024/04/15", "2000.0", "XYZ789", "Maserati", "Modelo43A", "Negro", "60.0", "2019", "Manual" },
+			    { "3", "Kevin", "2024/04/10", "2024/04/20", "1800.0", "DEF456", "Porsche", "Modelo21A", "Rojo", "55.0", "2021", "Automática" },
+			    { "4", "Omar", "2024/04/15", "2024/04/25", "2200.0", "GHI789", "Lamborghini", "Modelo89F", "Negro", "65.0", "2018", "Manual" },
+			    { "5", "Roberto", "2024/04/20", "2024/04/30", "1700.0", "JKL012", "Bugatti", "Modelo30X", "Rojo", "70.0", "2022", "Automática" },
+			    { "6", "Melissa", "2024/04/25", "2024/05/05", "2500.0", "MNO345", "Bentley", "Modelo43A", "Negro", "75.0", "2017", "Manual" },
+			    { "7", "Heriberto", "2024/04/30", "2024/05/10", "1900.0", "PQR678", "BMW", "Modelo21A", "Rojo", "55.0", "2023", "Automática" },
+			    { "8", "Manuel", "2024/05/05", "2024/05/15", "2300.0", "STU901", "MacLaren", "Modelo89F", "Negro", "80.0", "2016", "Manual" },
+			    { "9", "Karim", "2024/05/10", "2024/05/20", "2100.0", "VWX234", "Ferrari", "Modelo30X", "Rojo", "75.0", "2020", "Automática" },
+			    { "10", "Ariel", "2024/05/15", "2024/05/25", "2400.0", "YZA567", "Maserati", "Modelo43A", "Negro", "65.0", "2019", "Manual" },
+			    { "11", "Hannia", "2024/05/20", "2024/05/30", "1800.0", "BCD890", "Porsche", "Modelo21A", "Rojo", "60.0", "2021", "Automática" },
+			    { "12", "Oscar", "2024/05/25", "2024/06/05", "2600.0", "EFG123", "Lamborghini", "Modelo89F", "Negro", "70.0", "2018", "Manual" },
+			    { "13", "Armando", "2024/05/30", "2024/06/10", "2000.0", "HIJ456", "Bugatti", "Modelo30X", "Rojo", "80.0", "2022", "Automática" },
+			    { "14", "Jassiel", "2024/06/04", "2024/06/14", "2900.0", "KLM789", "Bentley", "Modelo43A", "Negro", "85.0", "2017", "Manual" },
+			    { "15", "Gamaliel", "2024/06/09", "2024/06/19", "2200.0", "NOP012", "BMW", "Modelo21A", "Rojo", "70.0", "2023", "Automática" },
+			    { "16", "Ernesto", "2024/06/14", "2024/06/24", "2400.0", "OPQ345", "Ferrari", "Modelo30X", "Rojo", "80.0", "2020", "Automática" },
+			    { "17", "Zanhia", "2024/06/19", "2024/06/29", "2600.0", "RST678", "Maserati", "Modelo43A", "Negro", "90.0", "2019", "Manual" },
+			    { "18", "Michelle", "2024/06/24", "2024/07/04", "1900.0", "UVW901", "Porsche", "Modelo21A", "Rojo", "85.0", "2021", "Automática" },
+			    { "19", "Soon", "2024/06/29", "2024/07/09", "2800.0", "XYZ234", "Lamborghini", "Modelo89F", "Negro", "95.0", "2018", "Manual" },
+			    { "20", "Irais", "2024/07/04", "2024/07/14", "2200.0", "ABC567", "Bugatti", "Modelo30X", "Rojo", "100.0", "2022", "Automática" },
+			    { "21", "Elvia", "2024/07/09", "2024/07/19", "3000.0", "DEF890", "Bentley", "Modelo43A", "Negro", "110.0", "2017", "Manual" },
+			    { "22", "Juan", "2024/07/14", "2024/07/24", "2500.0", "GHI123", "BMW", "Modelo21A", "Rojo", "95.0", "2023", "Automática" },
+			    { "23", "Cristopher", "2024/07/19", "2024/07/29", "3200.0", "JKL456", "MacLaren", "Modelo89F", "Negro", "120.0", "2016", "Manual" },
+			    { "24", "Iram", "2024/07/24", "2024/08/03", "2700.0", "MNO789", "Ferrari", "Modelo30X", "Rojo", "105.0", "2020", "Automática" },
+			    { "25", "Christian", "2024/07/29", "2024/08/08", "3400.0", "PQR012", "Maserati", "Modelo43A", "Negro", "115.0", "2019", "Manual" },
+			    { "26", "Daniel", "2024/08/03", "2024/08/13", "2900.0", "STU345", "Porsche", "Modelo21A", "Rojo", "110.0", "2021", "Automática" },
+			    { "27", "Adan", "2024/08/08", "2024/08/18", "3800.0", "VWX678", "Lamborghini", "Modelo89F", "Negro", "125.0", "2018", "Manual" },
+			    { "28", "Carlos", "2024/08/13", "2024/08/23", "3100.0", "YZA901", "Bugatti", "Modelo30X", "Rojo", "130.0", "2022", "Automática" },
+			    { "29", "Joshua", "2024/08/18", "2024/08/28", "4000.0", "BCD234", "Bentley", "Modelo43A", "Negro", "140.0", "2017", "Manual" },
+			    { "30", "Alex", "2024/08/23", "2024/09/02", "3300.0", "EFG567", "BMW", "Modelo21A", "Rojo", "125.0", "2023", "Automática" }
+			};
+
 
 		JTable productoTable = new JTable(tableData, tableTitle);
 		productoTable.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 11));
@@ -1984,7 +2517,7 @@ public class Window {
 	}
 
 	private void consultaIndividual(JFrame frame) {
-		frame.setTitle("Consulta individual");
+		frame.setTitle("Consulta individual de rentas");
 		consultaIndiPanel.setBackground(new Color(0, 0, 0));
 
 		consultaIndiPanel.setBounds(0, 0, 1184, 638);
@@ -2036,7 +2569,7 @@ public class Window {
 		lblNewLabel.setBackground(new Color(0, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
-		lblNewLabel.setBounds(52, 11, 418, 52);
+		lblNewLabel.setBounds(59, 12, 370, 52);
 		panel_6.add(lblNewLabel);
 
 		JButton eliminar = new JButton();
@@ -2072,7 +2605,7 @@ public class Window {
 		});
 		atras.setContentAreaFilled(false);
 		atras.setBorderPainted(false);
-		atras.setBounds(0, 3, 72, 65);
+		atras.setBounds(0, 10, 54, 54);
 		panel_6.add(atras);
 
 		JButton rentar = new JButton("", null);
@@ -2093,12 +2626,12 @@ public class Window {
 		nomCliente.setHorizontalAlignment(SwingConstants.CENTER);
 		nomCliente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 
-		JLabel costoResp_2 = new JLabel("82398");
-		costoResp_2.setBounds(175, 10, 275, 21);
-		panel_3.add(costoResp_2);
-		costoResp_2.setOpaque(true);
-		costoResp_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2.setBackground(Color.WHITE);
+		JLabel rentaResult = new JLabel("82398");
+		rentaResult.setBounds(175, 10, 275, 21);
+		panel_3.add(rentaResult);
+		rentaResult.setOpaque(true);
+		rentaResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		rentaResult.setBackground(Color.WHITE);
 
 		JLabel fechaInicial = new JLabel("Fecha inicial");
 		fechaInicial.setBounds(4, 66, 149, 24);
@@ -2121,26 +2654,26 @@ public class Window {
 		costoFinal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 		costoFinal.setBackground(Color.BLACK);
 
-		JLabel costoResp_2_1 = new JLabel("82398");
-		costoResp_2_1.setOpaque(true);
-		costoResp_2_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_1.setBackground(Color.WHITE);
-		costoResp_2_1.setBounds(175, 38, 275, 21);
-		panel_3.add(costoResp_2_1);
+		JLabel clienteResult = new JLabel("82398");
+		clienteResult.setOpaque(true);
+		clienteResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		clienteResult.setBackground(Color.WHITE);
+		clienteResult.setBounds(175, 38, 275, 21);
+		panel_3.add(clienteResult);
 
-		JLabel costoResp_2_1_1 = new JLabel("82398");
-		costoResp_2_1_1.setOpaque(true);
-		costoResp_2_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_1_1.setBackground(Color.WHITE);
-		costoResp_2_1_1.setBounds(175, 66, 275, 21);
-		panel_3.add(costoResp_2_1_1);
+		JLabel fechaIniResult = new JLabel("82398");
+		fechaIniResult.setOpaque(true);
+		fechaIniResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		fechaIniResult.setBackground(Color.WHITE);
+		fechaIniResult.setBounds(175, 66, 275, 21);
+		panel_3.add(fechaIniResult);
 
-		JLabel costoResp_2_1_1_1 = new JLabel("82398");
-		costoResp_2_1_1_1.setOpaque(true);
-		costoResp_2_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_1_1_1.setBackground(Color.WHITE);
-		costoResp_2_1_1_1.setBounds(175, 97, 275, 21);
-		panel_3.add(costoResp_2_1_1_1);
+		JLabel fechaFinResult = new JLabel("82398");
+		fechaFinResult.setOpaque(true);
+		fechaFinResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		fechaFinResult.setBackground(Color.WHITE);
+		fechaFinResult.setBounds(175, 97, 275, 21);
+		panel_3.add(fechaFinResult);
 
 		JLabel lblNoDeRenta = new JLabel("No. de Renta");
 		lblNoDeRenta.setHorizontalAlignment(SwingConstants.CENTER);
@@ -2149,12 +2682,12 @@ public class Window {
 		lblNoDeRenta.setBounds(5, 8, 159, 24);
 		panel_3.add(lblNoDeRenta);
 
-		JLabel costoResp_2_1_1_1_1 = new JLabel("82398");
-		costoResp_2_1_1_1_1.setOpaque(true);
-		costoResp_2_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_1_1_1_1.setBackground(Color.WHITE);
-		costoResp_2_1_1_1_1.setBounds(175, 125, 275, 21);
-		panel_3.add(costoResp_2_1_1_1_1);
+		JLabel costoTotalResult = new JLabel("82398");
+		costoTotalResult.setOpaque(true);
+		costoTotalResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		costoTotalResult.setBackground(Color.WHITE);
+		costoTotalResult.setBounds(175, 125, 275, 21);
+		panel_3.add(costoTotalResult);
 
 		JPanel panel_3_1 = new JPanel();
 		panel_3_1.setBackground(new Color(1, 6, 26));
@@ -2178,94 +2711,94 @@ public class Window {
 		lblModelo_1.setBounds(0, 64, 97, 30);
 		panel_3_1.add(lblModelo_1);
 
-		JLabel lblModelo_1_1 = new JLabel("Año");
-		lblModelo_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModelo_1_1.setForeground(Color.WHITE);
-		lblModelo_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
-		lblModelo_1_1.setBackground(Color.BLACK);
-		lblModelo_1_1.setBounds(0, 90, 52, 30);
-		panel_3_1.add(lblModelo_1_1);
+		JLabel ibYear = new JLabel("Año");
+		ibYear.setHorizontalAlignment(SwingConstants.CENTER);
+		ibYear.setForeground(Color.WHITE);
+		ibYear.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibYear.setBackground(Color.BLACK);
+		ibYear.setBounds(0, 90, 52, 30);
+		panel_3_1.add(ibYear);
 
-		JLabel lblModelo_1_1_1 = new JLabel("Transmisión");
-		lblModelo_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModelo_1_1_1.setForeground(Color.WHITE);
-		lblModelo_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
-		lblModelo_1_1_1.setBackground(Color.BLACK);
-		lblModelo_1_1_1.setBounds(0, 115, 146, 30);
-		panel_3_1.add(lblModelo_1_1_1);
+		JLabel ibTransmision = new JLabel("Transmisión");
+		ibTransmision.setHorizontalAlignment(SwingConstants.CENTER);
+		ibTransmision.setForeground(Color.WHITE);
+		ibTransmision.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibTransmision.setBackground(Color.BLACK);
+		ibTransmision.setBounds(0, 115, 146, 30);
+		panel_3_1.add(ibTransmision);
 
-		JLabel lblModelo_1_1_1_1 = new JLabel("Color");
-		lblModelo_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModelo_1_1_1_1.setForeground(Color.WHITE);
-		lblModelo_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
-		lblModelo_1_1_1_1.setBackground(Color.BLACK);
-		lblModelo_1_1_1_1.setBounds(0, 143, 72, 30);
-		panel_3_1.add(lblModelo_1_1_1_1);
+		JLabel ibColor = new JLabel("Color");
+		ibColor.setHorizontalAlignment(SwingConstants.CENTER);
+		ibColor.setForeground(Color.WHITE);
+		ibColor.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibColor.setBackground(Color.BLACK);
+		ibColor.setBounds(0, 143, 72, 30);
+		panel_3_1.add(ibColor);
 
-		JLabel lblModelo_1_2 = new JLabel("Marca");
-		lblModelo_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModelo_1_2.setForeground(Color.WHITE);
-		lblModelo_1_2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
-		lblModelo_1_2.setBackground(Color.BLACK);
-		lblModelo_1_2.setBounds(0, 35, 79, 30);
-		panel_3_1.add(lblModelo_1_2);
+		JLabel ibMarca = new JLabel("Marca");
+		ibMarca.setHorizontalAlignment(SwingConstants.CENTER);
+		ibMarca.setForeground(Color.WHITE);
+		ibMarca.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibMarca.setBackground(Color.BLACK);
+		ibMarca.setBounds(0, 35, 79, 30);
+		panel_3_1.add(ibMarca);
 
-		JLabel lblModelo_1_1_1_1_1 = new JLabel("Precio por día");
-		lblModelo_1_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModelo_1_1_1_1_1.setForeground(Color.WHITE);
-		lblModelo_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
-		lblModelo_1_1_1_1_1.setBackground(Color.BLACK);
-		lblModelo_1_1_1_1_1.setBounds(0, 168, 167, 30);
-		panel_3_1.add(lblModelo_1_1_1_1_1);
+		JLabel ibPrecioDia = new JLabel("Precio por día");
+		ibPrecioDia.setHorizontalAlignment(SwingConstants.CENTER);
+		ibPrecioDia.setForeground(Color.WHITE);
+		ibPrecioDia.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+		ibPrecioDia.setBackground(Color.BLACK);
+		ibPrecioDia.setBounds(0, 168, 167, 30);
+		panel_3_1.add(ibPrecioDia);
 
-		JLabel costoResp_2_2 = new JLabel("82398");
-		costoResp_2_2.setOpaque(true);
-		costoResp_2_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_2.setBackground(Color.WHITE);
-		costoResp_2_2.setBounds(175, 11, 275, 21);
-		panel_3_1.add(costoResp_2_2);
+		JLabel matriResult = new JLabel("82398");
+		matriResult.setOpaque(true);
+		matriResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		matriResult.setBackground(Color.WHITE);
+		matriResult.setBounds(175, 11, 275, 21);
+		panel_3_1.add(matriResult);
 
-		JLabel costoResp_2_2_1 = new JLabel("82398");
-		costoResp_2_2_1.setOpaque(true);
-		costoResp_2_2_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_2_1.setBackground(Color.WHITE);
-		costoResp_2_2_1.setBounds(175, 38, 275, 21);
-		panel_3_1.add(costoResp_2_2_1);
+		JLabel marcaResult = new JLabel("82398");
+		marcaResult.setOpaque(true);
+		marcaResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		marcaResult.setBackground(Color.WHITE);
+		marcaResult.setBounds(175, 38, 275, 21);
+		panel_3_1.add(marcaResult);
 
-		JLabel costoResp_2_2_1_1 = new JLabel("82398");
-		costoResp_2_2_1_1.setOpaque(true);
-		costoResp_2_2_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_2_1_1.setBackground(Color.WHITE);
-		costoResp_2_2_1_1.setBounds(175, 64, 275, 21);
-		panel_3_1.add(costoResp_2_2_1_1);
+		JLabel modeloResult = new JLabel("82398");
+		modeloResult.setOpaque(true);
+		modeloResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		modeloResult.setBackground(Color.WHITE);
+		modeloResult.setBounds(175, 64, 275, 21);
+		panel_3_1.add(modeloResult);
 
-		JLabel costoResp_2_2_1_1_1 = new JLabel("82398");
-		costoResp_2_2_1_1_1.setOpaque(true);
-		costoResp_2_2_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_2_1_1_1.setBackground(Color.WHITE);
-		costoResp_2_2_1_1_1.setBounds(175, 90, 275, 21);
-		panel_3_1.add(costoResp_2_2_1_1_1);
+		JLabel yearResult = new JLabel("82398");
+		yearResult.setOpaque(true);
+		yearResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		yearResult.setBackground(Color.WHITE);
+		yearResult.setBounds(175, 90, 275, 21);
+		panel_3_1.add(yearResult);
 
-		JLabel costoResp_2_2_1_1_1_1 = new JLabel("82398");
-		costoResp_2_2_1_1_1_1.setOpaque(true);
-		costoResp_2_2_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_2_1_1_1_1.setBackground(Color.WHITE);
-		costoResp_2_2_1_1_1_1.setBounds(175, 117, 275, 21);
-		panel_3_1.add(costoResp_2_2_1_1_1_1);
+		JLabel transResult = new JLabel("82398");
+		transResult.setOpaque(true);
+		transResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		transResult.setBackground(Color.WHITE);
+		transResult.setBounds(175, 117, 275, 21);
+		panel_3_1.add(transResult);
 
-		JLabel costoResp_2_2_1_1_1_1_1 = new JLabel("82398");
-		costoResp_2_2_1_1_1_1_1.setOpaque(true);
-		costoResp_2_2_1_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_2_1_1_1_1_1.setBackground(Color.WHITE);
-		costoResp_2_2_1_1_1_1_1.setBounds(175, 144, 275, 21);
-		panel_3_1.add(costoResp_2_2_1_1_1_1_1);
+		JLabel colorResult = new JLabel("82398");
+		colorResult.setOpaque(true);
+		colorResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		colorResult.setBackground(Color.WHITE);
+		colorResult.setBounds(175, 144, 275, 21);
+		panel_3_1.add(colorResult);
 
-		JLabel costoResp_2_2_1_1_1_1_1_1 = new JLabel("82398");
-		costoResp_2_2_1_1_1_1_1_1.setOpaque(true);
-		costoResp_2_2_1_1_1_1_1_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
-		costoResp_2_2_1_1_1_1_1_1.setBackground(Color.WHITE);
-		costoResp_2_2_1_1_1_1_1_1.setBounds(175, 171, 275, 21);
-		panel_3_1.add(costoResp_2_2_1_1_1_1_1_1);
+		JLabel precioDiaResult = new JLabel("82398");
+		precioDiaResult.setOpaque(true);
+		precioDiaResult.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 23));
+		precioDiaResult.setBackground(Color.WHITE);
+		precioDiaResult.setBounds(175, 171, 275, 21);
+		panel_3_1.add(precioDiaResult);
 
 	}
 }
